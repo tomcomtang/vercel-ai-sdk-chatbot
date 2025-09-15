@@ -1,1 +1,1 @@
-This is a ai project.
+This is an ai project.
