@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Navigation from '@/components/Navigation'
-import SVGBackground from '@/components/SVGBackground'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,10 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} h-screen overflow-hidden`}>
-        <SVGBackground />
+      <body className={`${inter.className} h-screen`}>
         <Navigation />
-        <main className="relative z-10 h-full">
+        <main className="relative z-10 h-full pt-16">
           {children}
         </main>
       </body>

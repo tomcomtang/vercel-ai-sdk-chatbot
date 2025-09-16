@@ -1,0 +1,1589 @@
+
+> vercel-ai-sdk-chatbot@0.1.0 dev
+> next dev
+
+   ▲ Next.js 14.0.4
+   - Local:        http://localhost:3000
+   - Environments: .env.local
+
+ ✓ Ready in 2.9s
+ ✓ Compiled /api/chat in 415ms (103 modules)
+Received messages: [ { role: 'user', content: '测试日志' } ]
+API Error: TypeError: Cannot read properties of undefined (reading 'filter')
+    at convertToModelMessages (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:5672:48)
+    at POST (webpack-internal:///(rsc)/./app/api/chat/route.ts:19:81)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async /Users/tomcomtang/VscodeProjects/video_fe/edgeone-templates/vercel-ai-sdk-chatbot/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:63251
+ ✓ Compiled in 77ms (103 modules)
+Received messages: [ { role: 'user', content: '测试修复后的格式' } ]
+Converted UI messages: [ { id: 'mdcxsxn6n', role: 'user', parts: [ [Object] ] } ]
+ ✓ Compiled in 39ms (103 modules)
+ ✓ Compiled in 29ms (103 modules)
+ ✓ Compiled in 28ms (103 modules)
+ ✓ Compiled in 12ms
+ ✓ Compiled /api/chat in 121ms (103 modules)
+Received messages: [ { role: 'user', content: '测试正常请求' } ]
+Converted UI messages: [ { id: 'otk6sp7mo', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 70,
+    outputTokens: 16,
+    totalTokens: 86,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+JSON parse error: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at parseJSONFromBytes (node:internal/deps/undici/undici:5595:19)
+    at successSteps (node:internal/deps/undici/undici:5566:27)
+    at fullyReadBody (node:internal/deps/undici/undici:1665:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async specConsumeBody (node:internal/deps/undici/undici:5575:7)
+    at async POST (webpack-internal:///(rsc)/./app/api/chat/route.ts:30:20)
+    at async /Users/tomcomtang/VscodeProjects/video_fe/edgeone-templates/vercel-ai-sdk-chatbot/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:63251
+ ✓ Compiled in 69ms (103 modules)
+ ✓ Compiled in 31ms (103 modules)
+ ✓ Compiled in 31ms (103 modules)
+ ✓ Compiled in 41ms (103 modules)
+ ✓ Compiled in 17ms
+ ○ Compiling /not-found ...
+ ✓ Compiled /not-found in 2.3s (479 modules)
+ ✓ Compiled in 80ms (247 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 529ms (666 modules)
+ ✓ Compiled /api/chat in 78ms (419 modules)
+Received messages: [ { parts: [ [Object] ], id: 'XnXSRPXZjP3oOVV2', role: 'user' } ]
+[ 'XnXSRPXZjP3oOVV2' ]
+Converted UI messages: [ { id: 'XnXSRPXZjP3oOVV2', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 68,
+    outputTokens: 11,
+    totalTokens: 79,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [
+  { parts: [ [Object] ], id: 'XnXSRPXZjP3oOVV2', role: 'user' },
+  {
+    id: 'mucjEPL7xNDSOY6B',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'MN4ts9wTRBiPc1fU', role: 'user' }
+]
+[ 'XnXSRPXZjP3oOVV2', 'mucjEPL7xNDSOY6B', 'MN4ts9wTRBiPc1fU' ]
+Converted UI messages: [
+  { id: 'XnXSRPXZjP3oOVV2', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'mucjEPL7xNDSOY6B',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'MN4ts9wTRBiPc1fU', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 83,
+    outputTokens: 32,
+    totalTokens: 115,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 185ms (675 modules)
+ ✓ Compiled in 123ms (346 modules)
+ ✓ Compiled in 142ms (675 modules)
+ ✓ Compiled in 54ms (346 modules)
+ ✓ Compiled /api/chat in 51ms (416 modules)
+Received messages: [ { role: 'user', content: '请写一首短诗' } ]
+[ undefined ]
+Converted UI messages: [ { id: 'f9i44okkh', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 72,
+    outputTokens: 34,
+    totalTokens: 106,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 254ms (762 modules)
+ ✓ Compiled in 165ms (762 modules)
+ ✓ Compiled in 253ms (675 modules)
+ ✓ Compiled in 123ms (675 modules)
+ ✓ Compiled in 89ms (675 modules)
+ ✓ Compiled in 85ms (675 modules)
+ ✓ Compiled in 49ms (346 modules)
+ ✓ Compiled in 57ms (661 modules)
+ ✓ Compiled in 86ms (675 modules)
+ ✓ Compiled /api/chat in 191ms (416 modules)
+Received messages: [
+  { parts: [ [Object] ], id: 'XnXSRPXZjP3oOVV2', role: 'user' },
+  {
+    id: 'mucjEPL7xNDSOY6B',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'MN4ts9wTRBiPc1fU', role: 'user' },
+  {
+    id: 'HyGDzzwc3u3lQivR',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'IgsB1MtvenyZXaCd', role: 'user' }
+]
+[
+  'XnXSRPXZjP3oOVV2',
+  'mucjEPL7xNDSOY6B',
+  'MN4ts9wTRBiPc1fU',
+  'HyGDzzwc3u3lQivR',
+  'IgsB1MtvenyZXaCd'
+]
+Converted UI messages: [
+  { id: 'XnXSRPXZjP3oOVV2', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'mucjEPL7xNDSOY6B',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'MN4ts9wTRBiPc1fU', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'HyGDzzwc3u3lQivR',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'IgsB1MtvenyZXaCd', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 116,
+    outputTokens: 10,
+    totalTokens: 126,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled /not-found in 154ms (753 modules)
+Received messages: [ { parts: [ [Object] ], id: 'kM4AsU6GLKtjuD7i', role: 'user' } ]
+[ 'kM4AsU6GLKtjuD7i' ]
+Converted UI messages: [ { id: 'kM4AsU6GLKtjuD7i', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 68,
+    outputTokens: 11,
+    totalTokens: 79,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [
+  { parts: [ [Object] ], id: 'kM4AsU6GLKtjuD7i', role: 'user' },
+  {
+    id: 'okKNhJUxHfy6ELAj',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'vAjrlSrD6KoXOoqM', role: 'user' }
+]
+[ 'kM4AsU6GLKtjuD7i', 'okKNhJUxHfy6ELAj', 'vAjrlSrD6KoXOoqM' ]
+Converted UI messages: [
+  { id: 'kM4AsU6GLKtjuD7i', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'okKNhJUxHfy6ELAj',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'vAjrlSrD6KoXOoqM', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 89,
+    outputTokens: 263,
+    totalTokens: 352,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 195ms (675 modules)
+ ✓ Compiled in 91ms (675 modules)
+ ✓ Compiled in 69ms (346 modules)
+ ✓ Compiled in 80ms (675 modules)
+ ✓ Compiled in 99ms (675 modules)
+ ✓ Compiled /api/chat in 252ms (416 modules)
+Received messages: [ { parts: [ [Object] ], id: 'Hfr0nNZhNzgC4JRA', role: 'user' } ]
+[ 'Hfr0nNZhNzgC4JRA' ]
+Converted UI messages: [ { id: 'Hfr0nNZhNzgC4JRA', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 68,
+    outputTokens: 11,
+    totalTokens: 79,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 194ms (675 modules)
+ ✓ Compiled in 94ms (675 modules)
+ ✓ Compiled /api/chat in 57ms (416 modules)
+Received messages: [
+  { parts: [ [Object] ], id: 'Hfr0nNZhNzgC4JRA', role: 'user' },
+  {
+    id: '6S3PuDZxLzQogxBh',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'rc8y3SHUIo7ar2lO', role: 'user' }
+]
+[ 'Hfr0nNZhNzgC4JRA', '6S3PuDZxLzQogxBh', 'rc8y3SHUIo7ar2lO' ]
+Converted UI messages: [
+  { id: 'Hfr0nNZhNzgC4JRA', role: 'user', parts: [ [Object] ] },
+  {
+    id: '6S3PuDZxLzQogxBh',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'rc8y3SHUIo7ar2lO', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 80,
+    outputTokens: 10,
+    totalTokens: 90,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 140ms (762 modules)
+ ✓ Compiled in 102ms (762 modules)
+ ✓ Compiled in 113ms (762 modules)
+ ✓ Compiled in 92ms (762 modules)
+ ✓ Compiled in 96ms (762 modules)
+ ✓ Compiled in 92ms (762 modules)
+ ✓ Compiled in 95ms (762 modules)
+ ✓ Compiled in 89ms (762 modules)
+ ✓ Compiled in 101ms (762 modules)
+ ✓ Compiled in 116ms (762 modules)
+ ✓ Compiled in 106ms (762 modules)
+ ✓ Compiled in 122ms (762 modules)
+ ✓ Compiled in 91ms (675 modules)
+ ✓ Compiled in 57ms (346 modules)
+ ✓ Compiled in 103ms (675 modules)
+ ✓ Compiled /api/chat in 108ms (416 modules)
+Received messages: [ { parts: [ [Object] ], id: 'RS0E1jlLvXCriQpA', role: 'user' } ]
+[ 'RS0E1jlLvXCriQpA' ]
+Converted UI messages: [ { id: 'RS0E1jlLvXCriQpA', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 71,
+    outputTokens: 67,
+    totalTokens: 138,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [
+  { parts: [ [Object] ], id: 'RS0E1jlLvXCriQpA', role: 'user' },
+  {
+    id: '5tzi8MWoe5Phh8n3',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'nerL3RXhHneGr01w', role: 'user' }
+]
+[ 'RS0E1jlLvXCriQpA', '5tzi8MWoe5Phh8n3', 'nerL3RXhHneGr01w' ]
+Converted UI messages: [
+  { id: 'RS0E1jlLvXCriQpA', role: 'user', parts: [ [Object] ] },
+  {
+    id: '5tzi8MWoe5Phh8n3',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'nerL3RXhHneGr01w', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 142,
+    outputTokens: 15,
+    totalTokens: 157,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 153ms (762 modules)
+ ✓ Compiled in 240ms (762 modules)
+ ✓ Compiled in 151ms (675 modules)
+ ✓ Compiled in 95ms (675 modules)
+ ✓ Compiled in 127ms (675 modules)
+ ✓ Compiled /api/chat in 91ms (416 modules)
+Received messages: [
+  { parts: [ [Object] ], id: 'RS0E1jlLvXCriQpA', role: 'user' },
+  {
+    id: '5tzi8MWoe5Phh8n3',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'nerL3RXhHneGr01w', role: 'user' },
+  {
+    id: 'r4K5SqsDPqrupfSe',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'VnUyBOFtuKmUx6LS', role: 'user' }
+]
+[
+  'RS0E1jlLvXCriQpA',
+  '5tzi8MWoe5Phh8n3',
+  'nerL3RXhHneGr01w',
+  'r4K5SqsDPqrupfSe',
+  'VnUyBOFtuKmUx6LS'
+]
+Converted UI messages: [
+  { id: 'RS0E1jlLvXCriQpA', role: 'user', parts: [ [Object] ] },
+  {
+    id: '5tzi8MWoe5Phh8n3',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'nerL3RXhHneGr01w', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'r4K5SqsDPqrupfSe',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'VnUyBOFtuKmUx6LS', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 247,
+    outputTokens: 580,
+    totalTokens: 827,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [
+  { parts: [ [Object] ], id: 'RS0E1jlLvXCriQpA', role: 'user' },
+  {
+    id: '5tzi8MWoe5Phh8n3',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'nerL3RXhHneGr01w', role: 'user' },
+  {
+    id: 'r4K5SqsDPqrupfSe',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'VnUyBOFtuKmUx6LS', role: 'user' },
+  {
+    id: '6Tixp2uE2ygurETX',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'OZ4QIXFJftZ7pXIj', role: 'user' }
+]
+[
+  'RS0E1jlLvXCriQpA',
+  '5tzi8MWoe5Phh8n3',
+  'nerL3RXhHneGr01w',
+  'r4K5SqsDPqrupfSe',
+  'VnUyBOFtuKmUx6LS',
+  '6Tixp2uE2ygurETX',
+  'OZ4QIXFJftZ7pXIj'
+]
+Converted UI messages: [
+  { id: 'RS0E1jlLvXCriQpA', role: 'user', parts: [ [Object] ] },
+  {
+    id: '5tzi8MWoe5Phh8n3',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'nerL3RXhHneGr01w', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'r4K5SqsDPqrupfSe',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'VnUyBOFtuKmUx6LS', role: 'user', parts: [ [Object] ] },
+  {
+    id: '6Tixp2uE2ygurETX',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'OZ4QIXFJftZ7pXIj', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 830,
+    outputTokens: 425,
+    totalTokens: 1255,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 183ms (675 modules)
+ ✓ Compiled in 103ms (675 modules)
+ ✓ Compiled in 198ms (675 modules)
+ ✓ Compiled in 87ms (675 modules)
+ ✓ Compiled in 182ms (679 modules)
+ ✓ Compiled in 133ms (679 modules)
+ ✓ Compiled in 97ms (679 modules)
+ ✓ Compiled in 78ms (679 modules)
+ ✓ Compiled in 112ms (679 modules)
+ ✓ Compiled /api/chat in 205ms (418 modules)
+Received messages: [ { parts: [ [Object] ], id: '0touPMExEuQKWCE8', role: 'user' } ]
+[ '0touPMExEuQKWCE8' ]
+Converted UI messages: [ { id: '0touPMExEuQKWCE8', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 22,
+    totalTokens: 85,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [ { parts: [ [Object] ], id: '0touPMExEuQKWCE8', role: 'user' } ]
+[ '0touPMExEuQKWCE8' ]
+Converted UI messages: [ { id: '0touPMExEuQKWCE8', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 23,
+    totalTokens: 86,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 174ms (766 modules)
+ ✓ Compiled in 125ms (766 modules)
+ ✓ Compiled in 119ms (766 modules)
+ ✓ Compiled in 84ms (766 modules)
+ ✓ Compiled in 93ms (766 modules)
+Received messages: [ { parts: [ [Object] ], id: 'bQOZWH1XuwKsJ0ZU', role: 'user' } ]
+[ 'bQOZWH1XuwKsJ0ZU' ]
+Converted UI messages: [ { id: 'bQOZWH1XuwKsJ0ZU', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 23,
+    totalTokens: 86,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [
+  { parts: [ [Object] ], id: 'bQOZWH1XuwKsJ0ZU', role: 'user' },
+  {
+    id: 'xSXWIbIBf6qLT374',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'C7tWKMzmO3ad9Z1Y', role: 'user' }
+]
+[ 'bQOZWH1XuwKsJ0ZU', 'xSXWIbIBf6qLT374', 'C7tWKMzmO3ad9Z1Y' ]
+Converted UI messages: [
+  { id: 'bQOZWH1XuwKsJ0ZU', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'xSXWIbIBf6qLT374',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'C7tWKMzmO3ad9Z1Y', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 95,
+    outputTokens: 73,
+    totalTokens: 168,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [
+  { parts: [ [Object] ], id: 'bQOZWH1XuwKsJ0ZU', role: 'user' },
+  {
+    id: 'xSXWIbIBf6qLT374',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'C7tWKMzmO3ad9Z1Y', role: 'user' },
+  {
+    id: '9yj4QKdnXjJua2Xz',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'NL7zg1rLPhSJ4kNg', role: 'user' }
+]
+[
+  'bQOZWH1XuwKsJ0ZU',
+  'xSXWIbIBf6qLT374',
+  'C7tWKMzmO3ad9Z1Y',
+  '9yj4QKdnXjJua2Xz',
+  'NL7zg1rLPhSJ4kNg'
+]
+Converted UI messages: [
+  { id: 'bQOZWH1XuwKsJ0ZU', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'xSXWIbIBf6qLT374',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'C7tWKMzmO3ad9Z1Y', role: 'user', parts: [ [Object] ] },
+  {
+    id: '9yj4QKdnXjJua2Xz',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'NL7zg1rLPhSJ4kNg', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 186,
+    outputTokens: 98,
+    totalTokens: 284,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 199ms (766 modules)
+ ✓ Compiled in 203ms (679 modules)
+ ✓ Compiled in 85ms (679 modules)
+ ✓ Compiled in 117ms (679 modules)
+ ✓ Compiled in 89ms (679 modules)
+ ✓ Compiled in 87ms (679 modules)
+ ✓ Compiled in 120ms (679 modules)
+ ✓ Compiled in 113ms (679 modules)
+ ✓ Compiled in 70ms (679 modules)
+ ✓ Compiled in 107ms (679 modules)
+ ✓ Compiled in 87ms (679 modules)
+ ✓ Compiled /api/chat in 188ms (418 modules)
+Received messages: [
+  { parts: [ [Object] ], id: 'bQOZWH1XuwKsJ0ZU', role: 'user' },
+  {
+    id: 'xSXWIbIBf6qLT374',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'C7tWKMzmO3ad9Z1Y', role: 'user' },
+  {
+    id: '9yj4QKdnXjJua2Xz',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'NL7zg1rLPhSJ4kNg', role: 'user' },
+  {
+    id: 'lbmdIkmESxFk5iy5',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'rCfWnG3KzI0wRmhB', role: 'user' }
+]
+[
+  'bQOZWH1XuwKsJ0ZU',
+  'xSXWIbIBf6qLT374',
+  'C7tWKMzmO3ad9Z1Y',
+  '9yj4QKdnXjJua2Xz',
+  'NL7zg1rLPhSJ4kNg',
+  'lbmdIkmESxFk5iy5',
+  'rCfWnG3KzI0wRmhB'
+]
+Converted UI messages: [
+  { id: 'bQOZWH1XuwKsJ0ZU', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'xSXWIbIBf6qLT374',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'C7tWKMzmO3ad9Z1Y', role: 'user', parts: [ [Object] ] },
+  {
+    id: '9yj4QKdnXjJua2Xz',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'NL7zg1rLPhSJ4kNg', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'lbmdIkmESxFk5iy5',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'rCfWnG3KzI0wRmhB', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 290,
+    outputTokens: 167,
+    totalTokens: 457,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [
+  { parts: [ [Object] ], id: 'bQOZWH1XuwKsJ0ZU', role: 'user' },
+  {
+    id: 'xSXWIbIBf6qLT374',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'C7tWKMzmO3ad9Z1Y', role: 'user' },
+  {
+    id: '9yj4QKdnXjJua2Xz',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'NL7zg1rLPhSJ4kNg', role: 'user' },
+  {
+    id: 'lbmdIkmESxFk5iy5',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'rCfWnG3KzI0wRmhB', role: 'user' },
+  {
+    id: 'c2YBmIcv9MBfxYdR',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'fi39PkhE8ZecVyn9', role: 'user' }
+]
+[
+  'bQOZWH1XuwKsJ0ZU',
+  'xSXWIbIBf6qLT374',
+  'C7tWKMzmO3ad9Z1Y',
+  '9yj4QKdnXjJua2Xz',
+  'NL7zg1rLPhSJ4kNg',
+  'lbmdIkmESxFk5iy5',
+  'rCfWnG3KzI0wRmhB',
+  'c2YBmIcv9MBfxYdR',
+  'fi39PkhE8ZecVyn9'
+]
+Converted UI messages: [
+  { id: 'bQOZWH1XuwKsJ0ZU', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'xSXWIbIBf6qLT374',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'C7tWKMzmO3ad9Z1Y', role: 'user', parts: [ [Object] ] },
+  {
+    id: '9yj4QKdnXjJua2Xz',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'NL7zg1rLPhSJ4kNg', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'lbmdIkmESxFk5iy5',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'rCfWnG3KzI0wRmhB', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'c2YBmIcv9MBfxYdR',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'fi39PkhE8ZecVyn9', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 458,
+    outputTokens: 20,
+    totalTokens: 478,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 237ms (679 modules)
+ ✓ Compiled in 113ms (665 modules)
+ ⨯ ./app/page.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+     ,-[[36;1;4m/Users/tomcomtang/VscodeProjects/video_fe/edgeone-templates/vercel-ai-sdk-chatbot/app/page.tsx[0m:112:1]
+ [2m112[0m |   }
+ [2m113[0m | 
+ [2m114[0m |   return (
+ [2m115[0m |     <div className="h-full flex flex-col">
+     : [31;1m     ^^^[0m
+ [2m116[0m |       {/* 消息区域 - 可滚动 */}
+ [2m117[0m |       <div className="flex-1 overflow-y-auto px-6 py-4">
+ [2m118[0m |         <div className="w-full max-w-4xl mx-auto">
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/page.tsx
+ ⨯ ./app/page.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+     ,-[[36;1;4m/Users/tomcomtang/VscodeProjects/video_fe/edgeone-templates/vercel-ai-sdk-chatbot/app/page.tsx[0m:112:1]
+ [2m112[0m |   }
+ [2m113[0m | 
+ [2m114[0m |   return (
+ [2m115[0m |     <div className="h-full flex flex-col">
+     : [31;1m     ^^^[0m
+ [2m116[0m |       {/* 消息区域 - 可滚动 */}
+ [2m117[0m |       <div className="flex-1 overflow-y-auto px-6 py-4">
+ [2m118[0m |         <div className="w-full max-w-4xl mx-auto">
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/page.tsx
+ ○ Compiling /_error ...
+ ✓ Compiled /not-found in 439ms (830 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 140ms (844 modules)
+ ✓ Compiled /api/chat in 157ms (460 modules)
+Received messages: [ { parts: [ [Object] ], id: 'L1OgUrNxYknrgyeM', role: 'user' } ]
+[ 'L1OgUrNxYknrgyeM' ]
+Converted UI messages: [ { id: 'L1OgUrNxYknrgyeM', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 22,
+    totalTokens: 85,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 136ms (931 modules)
+ ✓ Compiled in 120ms (931 modules)
+ ✓ Compiled in 253ms (931 modules)
+Received messages: [ { parts: [ [Object] ], id: 'swz6RfY7L2wSWOq4', role: 'user' } ]
+[ 'swz6RfY7L2wSWOq4' ]
+Converted UI messages: [ { id: 'swz6RfY7L2wSWOq4', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 23,
+    totalTokens: 86,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ⨯ ./app/page.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+     ,-[[36;1;4m/Users/tomcomtang/VscodeProjects/video_fe/edgeone-templates/vercel-ai-sdk-chatbot/app/page.tsx[0m:112:1]
+ [2m112[0m |   }
+ [2m113[0m | 
+ [2m114[0m |   return (
+ [2m115[0m |     <div className="w-full max-w-4xl h-full mx-auto px-6 py-4">
+     : [31;1m     ^^^[0m
+ [2m116[0m |       {/* 首屏标题和描述 */}
+ [2m117[0m |       {messages.length === 0 && !hideHomeScreen ? (
+ [2m118[0m |         <div className={`h-full flex flex-col justify-center transition-all duration-[900ms] ease-in-out ${
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/page.tsx
+ ✓ Compiled /not-found in 192ms (917 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ ./app/page.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+     ,-[[36;1;4m/Users/tomcomtang/VscodeProjects/video_fe/edgeone-templates/vercel-ai-sdk-chatbot/app/page.tsx[0m:112:1]
+ [2m112[0m |   }
+ [2m113[0m | 
+ [2m114[0m |   return (
+ [2m115[0m |     <div className="w-full max-w-4xl h-full mx-auto px-6 py-4">
+     : [31;1m     ^^^[0m
+ [2m116[0m |       {/* 首屏标题和描述 */}
+ [2m117[0m |       {messages.length === 0 && !hideHomeScreen ? (
+ [2m118[0m |         <div className={`h-full flex flex-col justify-center transition-all duration-[900ms] ease-in-out ${
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/page.tsx
+ ✓ Compiled in 224ms (917 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled in 168ms (844 modules)
+ ✓ Compiled in 98ms (844 modules)
+ ✓ Compiled /api/chat in 64ms (460 modules)
+Received messages: [ { parts: [ [Object] ], id: 'JfecwqhgeB4Kwd8m', role: 'user' } ]
+[ 'JfecwqhgeB4Kwd8m' ]
+Converted UI messages: [ { id: 'JfecwqhgeB4Kwd8m', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 22,
+    totalTokens: 85,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 187ms (926 modules)
+ ✓ Compiled in 108ms (839 modules)
+ ✓ Compiled /api/chat in 62ms (457 modules)
+Received messages: [ { parts: [ [Object] ], id: 'wK3d04j6Ms647B8j', role: 'user' } ]
+[ 'wK3d04j6Ms647B8j' ]
+Converted UI messages: [ { id: 'wK3d04j6Ms647B8j', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 23,
+    totalTokens: 86,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 222ms (839 modules)
+ ✓ Compiled in 104ms (839 modules)
+ ✓ Compiled in 243ms (839 modules)
+ ✓ Compiled in 106ms (839 modules)
+ ✓ Compiled in 77ms (469 modules)
+ ✓ Compiled in 121ms (839 modules)
+ ✓ Compiled in 119ms (839 modules)
+ ✓ Compiled /api/chat in 199ms (457 modules)
+Received messages: [ { parts: [ [Object] ], id: 'NKiTVL6OJAs1GQFj', role: 'user' } ]
+[ 'NKiTVL6OJAs1GQFj' ]
+Converted UI messages: [ { id: 'NKiTVL6OJAs1GQFj', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 23,
+    totalTokens: 86,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [ { parts: [ [Object] ], id: 'NKiTVL6OJAs1GQFj', role: 'user' } ]
+[ 'NKiTVL6OJAs1GQFj' ]
+Converted UI messages: [ { id: 'NKiTVL6OJAs1GQFj', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 11,
+    totalTokens: 74,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [ { parts: [ [Object] ], id: 'qZvbgV9v1T6fQiyA', role: 'user' } ]
+[ 'qZvbgV9v1T6fQiyA' ]
+Converted UI messages: [ { id: 'qZvbgV9v1T6fQiyA', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 23,
+    totalTokens: 86,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [
+  { parts: [ [Object] ], id: 'qZvbgV9v1T6fQiyA', role: 'user' },
+  {
+    id: 'IIQYPDBWyzke2LpB',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'tm6MzWHOOPRtpEsk', role: 'user' }
+]
+[ 'qZvbgV9v1T6fQiyA', 'IIQYPDBWyzke2LpB', 'tm6MzWHOOPRtpEsk' ]
+Converted UI messages: [
+  { id: 'qZvbgV9v1T6fQiyA', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'IIQYPDBWyzke2LpB',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'tm6MzWHOOPRtpEsk', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 94,
+    outputTokens: 208,
+    totalTokens: 302,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [
+  { parts: [ [Object] ], id: 'qZvbgV9v1T6fQiyA', role: 'user' },
+  {
+    id: 'IIQYPDBWyzke2LpB',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'tm6MzWHOOPRtpEsk', role: 'user' },
+  {
+    id: 'G6PnPagf7a67zX9y',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'rbuySzw34R8UleJT', role: 'user' }
+]
+[
+  'qZvbgV9v1T6fQiyA',
+  'IIQYPDBWyzke2LpB',
+  'tm6MzWHOOPRtpEsk',
+  'G6PnPagf7a67zX9y',
+  'rbuySzw34R8UleJT'
+]
+Converted UI messages: [
+  { id: 'qZvbgV9v1T6fQiyA', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'IIQYPDBWyzke2LpB',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'tm6MzWHOOPRtpEsk', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'G6PnPagf7a67zX9y',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'rbuySzw34R8UleJT', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 321,
+    outputTokens: 84,
+    totalTokens: 405,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 233ms (926 modules)
+ ✓ Compiled in 114ms (926 modules)
+ ✓ Compiled in 294ms (839 modules)
+ ✓ Compiled in 112ms (839 modules)
+ ✓ Compiled in 103ms (839 modules)
+ ✓ Compiled in 112ms (469 modules)
+ ⨯ ./app/page.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+     ,-[[36;1;4m/Users/tomcomtang/VscodeProjects/video_fe/edgeone-templates/vercel-ai-sdk-chatbot/app/page.tsx[0m:129:1]
+ [2m129[0m |   }
+ [2m130[0m | 
+ [2m131[0m |   return (
+ [2m132[0m |     <div className="w-full max-w-4xl h-full mx-auto px-6 py-4">
+     : [31;1m     ^^^[0m
+ [2m133[0m |       {/* 首屏标题和描述 */}
+ [2m134[0m |       {messages.length === 0 && !hideHomeScreen ? (
+ [2m135[0m |         <div className={`h-full flex flex-col justify-center transition-all duration-[900ms] ease-in-out ${
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/page.tsx
+ ⨯ ./app/page.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+     ,-[[36;1;4m/Users/tomcomtang/VscodeProjects/video_fe/edgeone-templates/vercel-ai-sdk-chatbot/app/page.tsx[0m:129:1]
+ [2m129[0m |   }
+ [2m130[0m | 
+ [2m131[0m |   return (
+ [2m132[0m |     <div className="w-full max-w-4xl h-full mx-auto px-6 py-4">
+     : [31;1m     ^^^[0m
+ [2m133[0m |       {/* 首屏标题和描述 */}
+ [2m134[0m |       {messages.length === 0 && !hideHomeScreen ? (
+ [2m135[0m |         <div className={`h-full flex flex-col justify-center transition-all duration-[900ms] ease-in-out ${
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/page.tsx
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ○ Compiling /not-found ...
+ ✓ Compiled /not-found in 210ms (830 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled in 157ms (844 modules)
+ ✓ Compiled /api/chat in 196ms (460 modules)
+Received messages: [ { parts: [ [Object] ], id: 'oLrSldCTpchMbYlA', role: 'user' } ]
+[ 'oLrSldCTpchMbYlA' ]
+Converted UI messages: [ { id: 'oLrSldCTpchMbYlA', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 22,
+    totalTokens: 85,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [
+  { parts: [ [Object] ], id: 'oLrSldCTpchMbYlA', role: 'user' },
+  {
+    id: 'xh5XnQJpKsrOzJ32',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'GzohaqemwcsWHTPP', role: 'user' }
+]
+[ 'oLrSldCTpchMbYlA', 'xh5XnQJpKsrOzJ32', 'GzohaqemwcsWHTPP' ]
+Converted UI messages: [
+  { id: 'oLrSldCTpchMbYlA', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'xh5XnQJpKsrOzJ32',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'GzohaqemwcsWHTPP', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 92,
+    outputTokens: 219,
+    totalTokens: 311,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+Received messages: [
+  { parts: [ [Object] ], id: 'oLrSldCTpchMbYlA', role: 'user' },
+  {
+    id: 'xh5XnQJpKsrOzJ32',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'GzohaqemwcsWHTPP', role: 'user' },
+  {
+    id: '6UW4a4F64H8bs0jO',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: '5jhYGdbFb209Xu7f', role: 'user' }
+]
+[
+  'oLrSldCTpchMbYlA',
+  'xh5XnQJpKsrOzJ32',
+  'GzohaqemwcsWHTPP',
+  '6UW4a4F64H8bs0jO',
+  '5jhYGdbFb209Xu7f'
+]
+Converted UI messages: [
+  { id: 'oLrSldCTpchMbYlA', role: 'user', parts: [ [Object] ] },
+  {
+    id: 'xh5XnQJpKsrOzJ32',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'GzohaqemwcsWHTPP', role: 'user', parts: [ [Object] ] },
+  {
+    id: '6UW4a4F64H8bs0jO',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: '5jhYGdbFb209Xu7f', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI API Error: {
+  error: RetryError [AI_RetryError]: Failed after 3 attempts. Last error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+      at _retryWithExponentialBackoff (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1758:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async streamStep (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4796:112)
+      at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:5139:17)
+      at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28) {
+    cause: undefined,
+    reason: 'maxRetriesExceeded',
+    errors: [ [APICallError], [APICallError], [APICallError] ],
+    lastError: APICallError [AI_APICallError]: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+        at eval (webpack-internal:///(rsc)/./node_modules/@ai-sdk/provider-utils/dist/index.mjs:810:24)
+        at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+        at async postToApi (webpack-internal:///(rsc)/./node_modules/@ai-sdk/provider-utils/dist/index.mjs:687:36)
+        at async GoogleGenerativeAILanguageModel.doStream (webpack-internal:///(rsc)/./node_modules/@ai-sdk/google/dist/index.mjs:945:54)
+        at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4839:45)
+        at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28)
+        at async _retryWithExponentialBackoff (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1743:16)
+        at async streamStep (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4796:112)
+        at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:5139:17)
+        at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28) {
+      cause: undefined,
+      url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?alt=sse',
+      requestBodyValues: [Object],
+      statusCode: 429,
+      responseHeaders: [Object],
+      responseBody: '{\n' +
+        '  "error": {\n' +
+        '    "code": 429,\n' +
+        '    "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.",\n' +
+        '    "status": "RESOURCE_EXHAUSTED",\n' +
+        '    "details": [\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.QuotaFailure",\n' +
+        '        "violations": [\n' +
+        '          {\n' +
+        '            "quotaMetric": "generativelanguage.googleapis.com/generate_content_free_tier_requests",\n' +
+        '            "quotaId": "GenerateRequestsPerDayPerProjectPerModel-FreeTier",\n' +
+        '            "quotaDimensions": {\n' +
+        '              "location": "global",\n' +
+        '              "model": "gemini-1.5-flash"\n' +
+        '            },\n' +
+        '            "quotaValue": "50"\n' +
+        '          }\n' +
+        '        ]\n' +
+        '      },\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.Help",\n' +
+        '        "links": [\n' +
+        '          {\n' +
+        '            "description": "Learn more about Gemini API quotas",\n' +
+        '            "url": "https://ai.google.dev/gemini-api/docs/rate-limits"\n' +
+        '          }\n' +
+        '        ]\n' +
+        '      },\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.RetryInfo",\n' +
+        '        "retryDelay": "33s"\n' +
+        '      }\n' +
+        '    ]\n' +
+        '  }\n' +
+        '}\n',
+      isRetryable: true,
+      data: [Object],
+      [Symbol(vercel.ai.error)]: true,
+      [Symbol(vercel.ai.error.AI_APICallError)]: true
+    },
+    [Symbol(vercel.ai.error)]: true,
+    [Symbol(vercel.ai.error.AI_RetryError)]: true
+  }
+}
+Received messages: [ { parts: [ [Object] ], id: 'xFfqGLlQka5EKVg2', role: 'user' } ]
+[ 'xFfqGLlQka5EKVg2' ]
+Converted UI messages: [ { id: 'xFfqGLlQka5EKVg2', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI API Error: {
+  error: RetryError [AI_RetryError]: Failed after 3 attempts. Last error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+      at _retryWithExponentialBackoff (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1758:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async streamStep (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4796:112)
+      at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:5139:17)
+      at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28) {
+    cause: undefined,
+    reason: 'maxRetriesExceeded',
+    errors: [ [APICallError], [APICallError], [APICallError] ],
+    lastError: APICallError [AI_APICallError]: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+        at eval (webpack-internal:///(rsc)/./node_modules/@ai-sdk/provider-utils/dist/index.mjs:810:24)
+        at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+        at async postToApi (webpack-internal:///(rsc)/./node_modules/@ai-sdk/provider-utils/dist/index.mjs:687:36)
+        at async GoogleGenerativeAILanguageModel.doStream (webpack-internal:///(rsc)/./node_modules/@ai-sdk/google/dist/index.mjs:945:54)
+        at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4839:45)
+        at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28)
+        at async _retryWithExponentialBackoff (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1743:16)
+        at async streamStep (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4796:112)
+        at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:5139:17)
+        at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28) {
+      cause: undefined,
+      url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?alt=sse',
+      requestBodyValues: [Object],
+      statusCode: 429,
+      responseHeaders: [Object],
+      responseBody: '{\n' +
+        '  "error": {\n' +
+        '    "code": 429,\n' +
+        '    "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.",\n' +
+        '    "status": "RESOURCE_EXHAUSTED",\n' +
+        '    "details": [\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.QuotaFailure",\n' +
+        '        "violations": [\n' +
+        '          {\n' +
+        '            "quotaMetric": "generativelanguage.googleapis.com/generate_content_free_tier_requests",\n' +
+        '            "quotaId": "GenerateRequestsPerDayPerProjectPerModel-FreeTier",\n' +
+        '            "quotaDimensions": {\n' +
+        '              "location": "global",\n' +
+        '              "model": "gemini-1.5-flash"\n' +
+        '            },\n' +
+        '            "quotaValue": "50"\n' +
+        '          }\n' +
+        '        ]\n' +
+        '      },\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.Help",\n' +
+        '        "links": [\n' +
+        '          {\n' +
+        '            "description": "Learn more about Gemini API quotas",\n' +
+        '            "url": "https://ai.google.dev/gemini-api/docs/rate-limits"\n' +
+        '          }\n' +
+        '        ]\n' +
+        '      },\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.RetryInfo",\n' +
+        '        "retryDelay": "7s"\n' +
+        '      }\n' +
+        '    ]\n' +
+        '  }\n' +
+        '}\n',
+      isRetryable: true,
+      data: [Object],
+      [Symbol(vercel.ai.error)]: true,
+      [Symbol(vercel.ai.error.AI_APICallError)]: true
+    },
+    [Symbol(vercel.ai.error)]: true,
+    [Symbol(vercel.ai.error.AI_RetryError)]: true
+  }
+}
+Received messages: [ { parts: [ [Object] ], id: 'A6x0wDt0yM2kzzgr', role: 'user' } ]
+[ 'A6x0wDt0yM2kzzgr' ]
+Converted UI messages: [ { id: 'A6x0wDt0yM2kzzgr', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI Response finished: {
+  model: 'gemini-1.5-flash',
+  usage: {
+    inputTokens: 63,
+    outputTokens: 23,
+    totalTokens: 86,
+    reasoningTokens: undefined,
+    cachedInputTokens: undefined
+  },
+  finishReason: 'stop'
+}
+ ✓ Compiled in 253ms (926 modules)
+ ✓ Compiled in 121ms (926 modules)
+ ✓ Compiled in 206ms (839 modules)
+ ✓ Compiled in 114ms (839 modules)
+ ✓ Compiled in 116ms (839 modules)
+ ✓ Compiled /api/chat in 122ms (912 modules)
+Received messages: [
+  { parts: [ [Object] ], id: 'A6x0wDt0yM2kzzgr', role: 'user' },
+  {
+    id: '6Lj2m2LsCK2GSAE4',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { parts: [ [Object] ], id: 'I0jeeoBv67k9Prig', role: 'user' }
+]
+[ 'A6x0wDt0yM2kzzgr', '6Lj2m2LsCK2GSAE4', 'I0jeeoBv67k9Prig' ]
+Converted UI messages: [
+  { id: 'A6x0wDt0yM2kzzgr', role: 'user', parts: [ [Object] ] },
+  {
+    id: '6Lj2m2LsCK2GSAE4',
+    role: 'assistant',
+    parts: [ [Object], [Object] ]
+  },
+  { id: 'I0jeeoBv67k9Prig', role: 'user', parts: [ [Object] ] }
+]
+Using model: gemini-1.5-flash
+Google AI API Error: {
+  error: RetryError [AI_RetryError]: Failed after 3 attempts. Last error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+      at _retryWithExponentialBackoff (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1758:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async streamStep (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4796:112)
+      at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:5139:17)
+      at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28) {
+    cause: undefined,
+    reason: 'maxRetriesExceeded',
+    errors: [ [APICallError], [APICallError], [APICallError] ],
+    lastError: APICallError [AI_APICallError]: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+        at eval (webpack-internal:///(rsc)/./node_modules/@ai-sdk/provider-utils/dist/index.mjs:810:24)
+        at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+        at async postToApi (webpack-internal:///(rsc)/./node_modules/@ai-sdk/provider-utils/dist/index.mjs:687:36)
+        at async GoogleGenerativeAILanguageModel.doStream (webpack-internal:///(rsc)/./node_modules/@ai-sdk/google/dist/index.mjs:945:54)
+        at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4839:45)
+        at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28)
+        at async _retryWithExponentialBackoff (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1743:16)
+        at async streamStep (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4796:112)
+        at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:5139:17)
+        at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28) {
+      cause: undefined,
+      url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?alt=sse',
+      requestBodyValues: [Object],
+      statusCode: 429,
+      responseHeaders: [Object],
+      responseBody: '{\n' +
+        '  "error": {\n' +
+        '    "code": 429,\n' +
+        '    "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.",\n' +
+        '    "status": "RESOURCE_EXHAUSTED",\n' +
+        '    "details": [\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.QuotaFailure",\n' +
+        '        "violations": [\n' +
+        '          {\n' +
+        '            "quotaMetric": "generativelanguage.googleapis.com/generate_content_free_tier_requests",\n' +
+        '            "quotaId": "GenerateRequestsPerDayPerProjectPerModel-FreeTier",\n' +
+        '            "quotaDimensions": {\n' +
+        '              "location": "global",\n' +
+        '              "model": "gemini-1.5-flash"\n' +
+        '            },\n' +
+        '            "quotaValue": "50"\n' +
+        '          }\n' +
+        '        ]\n' +
+        '      },\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.Help",\n' +
+        '        "links": [\n' +
+        '          {\n' +
+        '            "description": "Learn more about Gemini API quotas",\n' +
+        '            "url": "https://ai.google.dev/gemini-api/docs/rate-limits"\n' +
+        '          }\n' +
+        '        ]\n' +
+        '      },\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.RetryInfo",\n' +
+        '        "retryDelay": "54s"\n' +
+        '      }\n' +
+        '    ]\n' +
+        '  }\n' +
+        '}\n',
+      isRetryable: true,
+      data: [Object],
+      [Symbol(vercel.ai.error)]: true,
+      [Symbol(vercel.ai.error.AI_APICallError)]: true
+    },
+    [Symbol(vercel.ai.error)]: true,
+    [Symbol(vercel.ai.error.AI_RetryError)]: true
+  }
+}
+Received messages: [ { parts: [ [Object] ], id: 'd6bTuIOvtyxjSyT7', role: 'user' } ]
+[ 'd6bTuIOvtyxjSyT7' ]
+Converted UI messages: [ { id: 'd6bTuIOvtyxjSyT7', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI API Error: {
+  error: RetryError [AI_RetryError]: Failed after 3 attempts. Last error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+      at _retryWithExponentialBackoff (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1758:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async streamStep (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4796:112)
+      at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:5139:17)
+      at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28) {
+    cause: undefined,
+    reason: 'maxRetriesExceeded',
+    errors: [ [APICallError], [APICallError], [APICallError] ],
+    lastError: APICallError [AI_APICallError]: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+        at eval (webpack-internal:///(rsc)/./node_modules/@ai-sdk/provider-utils/dist/index.mjs:810:24)
+        at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+        at async postToApi (webpack-internal:///(rsc)/./node_modules/@ai-sdk/provider-utils/dist/index.mjs:687:36)
+        at async GoogleGenerativeAILanguageModel.doStream (webpack-internal:///(rsc)/./node_modules/@ai-sdk/google/dist/index.mjs:945:54)
+        at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4839:45)
+        at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28)
+        at async _retryWithExponentialBackoff (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1743:16)
+        at async streamStep (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4796:112)
+        at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:5139:17)
+        at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28) {
+      cause: undefined,
+      url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?alt=sse',
+      requestBodyValues: [Object],
+      statusCode: 429,
+      responseHeaders: [Object],
+      responseBody: '{\n' +
+        '  "error": {\n' +
+        '    "code": 429,\n' +
+        '    "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.",\n' +
+        '    "status": "RESOURCE_EXHAUSTED",\n' +
+        '    "details": [\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.QuotaFailure",\n' +
+        '        "violations": [\n' +
+        '          {\n' +
+        '            "quotaMetric": "generativelanguage.googleapis.com/generate_content_free_tier_requests",\n' +
+        '            "quotaId": "GenerateRequestsPerDayPerProjectPerModel-FreeTier",\n' +
+        '            "quotaDimensions": {\n' +
+        '              "location": "global",\n' +
+        '              "model": "gemini-1.5-flash"\n' +
+        '            },\n' +
+        '            "quotaValue": "50"\n' +
+        '          }\n' +
+        '        ]\n' +
+        '      },\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.Help",\n' +
+        '        "links": [\n' +
+        '          {\n' +
+        '            "description": "Learn more about Gemini API quotas",\n' +
+        '            "url": "https://ai.google.dev/gemini-api/docs/rate-limits"\n' +
+        '          }\n' +
+        '        ]\n' +
+        '      },\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.RetryInfo",\n' +
+        '        "retryDelay": "2s"\n' +
+        '      }\n' +
+        '    ]\n' +
+        '  }\n' +
+        '}\n',
+      isRetryable: true,
+      data: [Object],
+      [Symbol(vercel.ai.error)]: true,
+      [Symbol(vercel.ai.error.AI_APICallError)]: true
+    },
+    [Symbol(vercel.ai.error)]: true,
+    [Symbol(vercel.ai.error.AI_RetryError)]: true
+  }
+}
+Received messages: [ { parts: [ [Object] ], id: '9HkszpbhVP71NDIY', role: 'user' } ]
+[ '9HkszpbhVP71NDIY' ]
+Converted UI messages: [ { id: '9HkszpbhVP71NDIY', role: 'user', parts: [ [Object] ] } ]
+Using model: gemini-1.5-flash
+Google AI API Error: {
+  error: RetryError [AI_RetryError]: Failed after 3 attempts. Last error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+      at _retryWithExponentialBackoff (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1758:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async streamStep (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4796:112)
+      at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:5139:17)
+      at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28) {
+    cause: undefined,
+    reason: 'maxRetriesExceeded',
+    errors: [ [APICallError], [APICallError], [APICallError] ],
+    lastError: APICallError [AI_APICallError]: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.
+        at eval (webpack-internal:///(rsc)/./node_modules/@ai-sdk/provider-utils/dist/index.mjs:810:24)
+        at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+        at async postToApi (webpack-internal:///(rsc)/./node_modules/@ai-sdk/provider-utils/dist/index.mjs:687:36)
+        at async GoogleGenerativeAILanguageModel.doStream (webpack-internal:///(rsc)/./node_modules/@ai-sdk/google/dist/index.mjs:945:54)
+        at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4839:45)
+        at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28)
+        at async _retryWithExponentialBackoff (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1743:16)
+        at async streamStep (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:4796:112)
+        at async fn (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:5139:17)
+        at async eval (webpack-internal:///(rsc)/./node_modules/ai/dist/index.mjs:1611:28) {
+      cause: undefined,
+      url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?alt=sse',
+      requestBodyValues: [Object],
+      statusCode: 429,
+      responseHeaders: [Object],
+      responseBody: '{\n' +
+        '  "error": {\n' +
+        '    "code": 429,\n' +
+        '    "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.",\n' +
+        '    "status": "RESOURCE_EXHAUSTED",\n' +
+        '    "details": [\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.QuotaFailure",\n' +
+        '        "violations": [\n' +
+        '          {\n' +
+        '            "quotaMetric": "generativelanguage.googleapis.com/generate_content_free_tier_requests",\n' +
+        '            "quotaId": "GenerateRequestsPerDayPerProjectPerModel-FreeTier",\n' +
+        '            "quotaDimensions": {\n' +
+        '              "location": "global",\n' +
+        '              "model": "gemini-1.5-flash"\n' +
+        '            },\n' +
+        '            "quotaValue": "50"\n' +
+        '          }\n' +
+        '        ]\n' +
+        '      },\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.Help",\n' +
+        '        "links": [\n' +
+        '          {\n' +
+        '            "description": "Learn more about Gemini API quotas",\n' +
+        '            "url": "https://ai.google.dev/gemini-api/docs/rate-limits"\n' +
+        '          }\n' +
+        '        ]\n' +
+        '      },\n' +
+        '      {\n' +
+        '        "@type": "type.googleapis.com/google.rpc.RetryInfo",\n' +
+        '        "retryDelay": "35s"\n' +
+        '      }\n' +
+        '    ]\n' +
+        '  }\n' +
+        '}\n',
+      isRetryable: true,
+      data: [Object],
+      [Symbol(vercel.ai.error)]: true,
+      [Symbol(vercel.ai.error.AI_APICallError)]: true
+    },
+    [Symbol(vercel.ai.error)]: true,
+    [Symbol(vercel.ai.error.AI_RetryError)]: true
+  }
+}
+ ✓ Compiled in 221ms (839 modules)

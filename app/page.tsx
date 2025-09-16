@@ -2,7 +2,7 @@
 
 import { useChat } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
-import { Bot, User } from 'lucide-react'
+import { Bot, User, RotateCcw, Copy } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 
 export default function Chat() {
@@ -12,23 +12,78 @@ export default function Chat() {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [showChat, setShowChat] = useState(false)
   const [hideHomeScreen, setHideHomeScreen] = useState(false)
+  const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null)
+  const [typingAnimationStopped, setTypingAnimationStopped] = useState(false)
   const titleRef = useRef<HTMLHeadingElement>(null)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
   
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage, status, error, regenerate } = useChat({
     transport: new DefaultChatTransport({
       api: '/api/chat',
     }),
+    onError: (error) => {
+      console.error('Chat error:', error)
+    },
+    onFinish: (message) => {
+      console.log('Message finished:', message)
+    }
   })
 
-  // 打字动画效果
+  // 拷贝消息内容到剪贴板
+  const copyToClipboard = async (text: string, messageId: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedMessageId(messageId)
+      // 2秒后清除拷贝状态
+      setTimeout(() => {
+        setCopiedMessageId(null)
+      }, 2000)
+    } catch (err) {
+      console.error('Failed to copy text: ', err)
+    }
+  }
+
+  // 重新生成AI回答
+  const regenerateResponse = (messageId?: string) => {
+    if (status === 'ready') {
+      regenerate({ messageId })
+    }
+  }
+
+  // 调试：打印消息格式和状态
   useEffect(() => {
-    const text = '请输入您的问题或想法...'
+    if (messages.length > 0) {
+      console.log('Frontend messages update:', {
+        status,
+        messagesCount: messages.length,
+        lastMessage: messages[messages.length - 1]
+      })
+      messages.forEach((msg, index) => {
+        console.log(`Message ${index}:`, {
+          id: msg.id,
+          role: msg.role,
+          parts: msg.parts,
+          partsContent: msg.parts?.map(p => p.type === 'text' ? p.text : p)
+        })
+      })
+    }
+  }, [messages, status])
+
+  // 自动滚动到底部
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [messages, status])
+
+  // 打字动画效果 
+  useEffect(() => {
+    const text = 'Please enter your question or idea...'
     let currentIndex = 0
-    let cursorVisible = true
     let phase = 'typing' // typing -> stop
 
     const typeInterval = setInterval(() => {
-      if (phase === 'typing') {
+      if (phase === 'typing' && !typingAnimationStopped) {
         // 打字阶段
         if (currentIndex <= text.length) {
           setPlaceholderText(text.slice(0, currentIndex))
@@ -42,7 +97,16 @@ export default function Chat() {
     }, 150)
 
     return () => clearInterval(typeInterval)
-  }, [])
+  }, [typingAnimationStopped])
+
+  // 当用户点击输入框时停止动画
+  const handleInputFocus = () => {
+    if (!typingAnimationStopped) {
+      setTypingAnimationStopped(true)
+      setPlaceholderText('Please enter your question or idea...')
+      setShowCursor(false)
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -86,7 +150,7 @@ export default function Chat() {
             <p 
               className="text-sm text-gray-300 mb-6 max-w-2xl mx-auto"
             >
-              与智能AI助手对话，获取答案、创意灵感或进行深度交流。支持多轮对话，让AI成为你的智能伙伴。
+              Chat with an intelligent AI assistant to get answers, creative inspiration, or engage in deep conversations. Supports multi-turn dialogue, making AI your smart companion.
             </p>
           </div>
           
@@ -102,6 +166,7 @@ export default function Chat() {
                 }}
                 onFocus={(e) => {
                   e.target.style.boxShadow = '0 0 25px rgba(255,255,255,0.3)'
+                  handleInputFocus()
                 }}
                 onBlur={(e) => {
                   e.target.style.boxShadow = 'none'
@@ -110,7 +175,7 @@ export default function Chat() {
                 value={input}
                 placeholder={`${placeholderText}${showCursor ? '|' : ''}`}
                 onChange={(e) => setInput(e.target.value)}
-                disabled={status === 'streaming'}
+                       disabled={status !== 'ready'}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault()
@@ -120,50 +185,136 @@ export default function Chat() {
               />
               <button
                 type="submit"
-                disabled={status === 'streaming' || !input.trim()}
+                       disabled={status !== 'ready' || !input.trim()}
                 className="absolute bottom-4 right-4 w-10 h-10 bg-transparent hover:bg-white hover:bg-opacity-20 rounded-full flex items-center justify-center text-white focus:outline-none focus:ring-2 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed text-sm transition-all duration-200"
               >
-                {status === 'streaming' ? '...' : '↑'}
+                       {status !== 'ready' ? '...' : '↑'}
               </button>
             </form>
           </div>
         </div>
       ) : (
-        <div className={`h-full flex flex-col transition-all duration-800 ease-in-out ${
+        <div className={`min-h-full transition-all duration-800 ease-in-out ${
           showChat ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
         }`}>
-          <div className="space-y-4 mb-4 flex-1 overflow-y-auto">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className="flex items-center space-x-3 mx-auto"
-                style={{ maxWidth: '720px' }}
-              >
-                <div
-                  className={`flex items-center justify-center w-6 h-6 rounded-lg bg-gray-800 border border-gray-700 flex-shrink-0 ${
-                    message.role === 'user'
-                      ? 'text-white'
-                      : 'text-white'
-                  }`}
-                >
-                  {message.role === 'user' ? <User size={12} /> : <Bot size={12} />}
+          {/* 消息区域 - 让整个页面可以滚动 */}
+          <div className="px-6 py-4 pb-44">
+            <div className="w-full max-w-4xl mx-auto">
+              <div className="space-y-4 mb-4">
+              {/* 错误提示 */}
+              {error && (
+                <div className="mx-auto max-w-2xl">
+                  <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-4 mb-4">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                      <p className="text-red-400 text-sm">Connection error, please check your network or try again later</p>
+                      <button
+                        onClick={() => window.location.reload()}
+                        className="ml-auto text-red-400 hover:text-red-300 text-sm underline"
+                      >
+                        Retry
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <p className="text-sm whitespace-pre-wrap text-white">
-                    {message.parts
-                      .filter((part: any) => part.type === 'text')
-                      .map((part: any) => part.text)
-                      .join('')}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+              )}
 
-          {/* 输入区域 */}
-          <div className={`pb-32 transition-all duration-800 ease-in-out ${
-            showChat ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
-          }`}>
+              {/* 消息列表 */}
+              {messages.map((message, index) => (
+                <div key={message.id}>
+                  <div
+                    className="flex items-start space-x-3 mx-auto"
+                    style={{ maxWidth: '720px' }}
+                  >
+                    <div
+                      className={`flex items-center justify-center w-6 h-6 rounded-lg bg-gray-800 border border-gray-700 flex-shrink-0 ${
+                        message.role === 'user'
+                          ? 'text-white'
+                          : 'text-white'
+                      }`}
+                    >
+                      {message.role === 'user' ? <User size={12} /> : <Bot size={12} />}
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm whitespace-pre-wrap text-white">
+                        {message.parts
+                          ?.filter((part: any) => part.type === 'text')
+                          ?.map((part: any) => part.text)
+                          ?.join('') || ''}
+                      </p>
+                      
+                      {/* AI消息的操作按钮 */}
+                      {message.role === 'assistant' && (
+                        <div className="flex justify-end space-x-2 mt-2">
+                          <button
+                            onClick={() => copyToClipboard(
+                              message.parts
+                                ?.filter((part: any) => part.type === 'text')
+                                ?.map((part: any) => part.text)
+                                ?.join('') || '',
+                              message.id
+                            )}
+                            className={`p-1.5 rounded-lg border transition-all duration-200 ${
+                              copiedMessageId === message.id
+                                ? 'bg-green-800 border-green-600'
+                                : 'bg-gray-800 hover:bg-gray-700 border-gray-600 hover:border-gray-500'
+                            }`}
+                            title={copiedMessageId === message.id ? "Copied!" : "Copy message"}
+                          >
+                            <Copy 
+                              size={10} 
+                              className={`transition-colors duration-200 ${
+                                copiedMessageId === message.id
+                                  ? 'text-green-400'
+                                  : 'text-gray-400 hover:text-white'
+                              }`} 
+                            />
+                          </button>
+                          <button
+                            onClick={() => regenerateResponse(message.id)}
+                            disabled={status !== 'ready'}
+                            className="p-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 border border-gray-600 hover:border-gray-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            title="Regenerate response"
+                          >
+                            <RotateCcw size={10} className="text-gray-400 hover:text-white" />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* AI加载状态 - 显示在最后一条用户消息下方 */}
+                  {message.role === 'user' && 
+                   index === messages.length - 1 && 
+                   status !== 'ready' && (
+                    <div className="flex items-center space-x-3 mx-auto mt-2" style={{ maxWidth: '720px' }}>
+                      <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-gray-800 border border-gray-700 flex-shrink-0">
+                        <Bot size={12} className="text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-1">
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                          <span className="text-gray-400 text-sm ml-2">AI is thinking...</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+              </div>
+              {/* 滚动锚点 */}
+              <div ref={messagesEndRef} />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 聊天状态的固定输入框 */}
+      {messages.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 z-20 px-6 py-4 bg-black">
+          <div className="w-full mx-auto">
             <form onSubmit={handleSubmit} className="relative mx-auto" style={{ maxWidth: '720px' }}>
               <textarea
                 className="w-full p-4 pr-20 border border-gray-600 rounded-2xl focus:outline-none focus:border-gray-600 bg-gray-800 text-white placeholder-gray-400 placeholder:text-sm resize-none shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] focus:shadow-[0_0_100px_rgba(255,255,255,0.6)] transition-all duration-300"
@@ -178,9 +329,9 @@ export default function Chat() {
                 }}
                 rows={4}
                 value={input}
-                placeholder="输入你的问题或想法..."
+                placeholder="Enter your question or idea..."
                 onChange={(e) => setInput(e.target.value)}
-                disabled={status === 'streaming'}
+                disabled={status !== 'ready'}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault()
@@ -190,10 +341,10 @@ export default function Chat() {
               />
               <button
                 type="submit"
-                disabled={status === 'streaming' || !input.trim()}
+                disabled={status !== 'ready' || !input.trim()}
                 className="absolute bottom-4 right-4 w-10 h-10 bg-transparent hover:bg-white hover:bg-opacity-20 rounded-full flex items-center justify-center text-white focus:outline-none focus:ring-2 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed text-sm transition-all duration-200"
               >
-                {status === 'streaming' ? '...' : '↑'}
+                {status !== 'ready' ? '...' : '↑'}
               </button>
             </form>
           </div>
@@ -202,3 +353,4 @@ export default function Chat() {
     </div>
   )
 }
+

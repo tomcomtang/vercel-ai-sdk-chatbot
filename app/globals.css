@@ -6,10 +6,27 @@
 html, body {
   background-color: #000000; /* 纯黑色 */
   color: #ffffff; /* 纯白色 */
-  overflow: hidden; /* 隐藏所有滚动条 */
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444444;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666666;
 }
 
 /* 确保输入框在黑色主题下可见 */
