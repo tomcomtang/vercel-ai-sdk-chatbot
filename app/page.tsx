@@ -2,8 +2,10 @@
 
 import { useChat } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
-import { Bot, User, RotateCcw, Copy } from 'lucide-react'
+import { Bot, User, RotateCcw, Copy, ArrowDown } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 export default function Chat() {
   const [input, setInput] = useState('')
@@ -14,6 +16,7 @@ export default function Chat() {
   const [hideHomeScreen, setHideHomeScreen] = useState(false)
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null)
   const [typingAnimationStopped, setTypingAnimationStopped] = useState(false)
+  const [showScrollToBottom, setShowScrollToBottom] = useState(false)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   
@@ -75,6 +78,31 @@ export default function Chat() {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messages, status])
+
+  // 滚动检测 - 显示/隐藏回到底部按钮
+  useEffect(() => {
+    const handleScroll = () => {
+      if (messages.length === 0) return
+      
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      const windowHeight = window.innerHeight
+      const documentHeight = document.documentElement.scrollHeight
+      
+      // 如果距离底部超过100px，显示按钮
+      const distanceFromBottom = documentHeight - (scrollTop + windowHeight)
+      setShowScrollToBottom(distanceFromBottom > 100)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [messages.length])
+
+  // 快速回到底部
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   // 打字动画效果 
   useEffect(() => {
@@ -236,12 +264,49 @@ export default function Chat() {
                       {message.role === 'user' ? <User size={12} /> : <Bot size={12} />}
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm whitespace-pre-wrap text-white">
-                        {message.parts
-                          ?.filter((part: any) => part.type === 'text')
-                          ?.map((part: any) => part.text)
-                          ?.join('') || ''}
-                      </p>
+                      {message.role === 'assistant' ? (
+                        <div className="text-sm text-white">
+                          <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                              // 简洁的样式
+                              p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                              h1: ({ children }) => <h1 className="text-lg font-bold mb-2 mt-3 first:mt-0">{children}</h1>,
+                              h2: ({ children }) => <h2 className="text-base font-bold mb-2 mt-3 first:mt-0">{children}</h2>,
+                              h3: ({ children }) => <h3 className="text-sm font-bold mb-2 mt-2 first:mt-0">{children}</h3>,
+                              ul: ({ children }) => <ul className="list-disc list-inside mb-2 ml-4">{children}</ul>,
+                              ol: ({ children }) => <ol className="list-decimal list-inside mb-2 ml-4">{children}</ol>,
+                              li: ({ children }) => <li className="mb-1">{children}</li>,
+                              code: ({ children, className }) => {
+                                const isInline = !className;
+                                return isInline ? (
+                                  <code className="bg-gray-700 px-1 py-0.5 rounded text-xs font-mono">{children}</code>
+                                ) : (
+                                  <code className="block bg-gray-800 p-3 rounded text-xs font-mono overflow-x-auto my-2">{children}</code>
+                                );
+                              },
+                              pre: ({ children }) => <pre className="bg-gray-800 p-3 rounded overflow-x-auto my-2">{children}</pre>,
+                              blockquote: ({ children }) => <blockquote className="border-l-2 border-gray-600 pl-3 italic my-2">{children}</blockquote>,
+                              table: ({ children }) => <table className="border-collapse border border-gray-600 my-2">{children}</table>,
+                              th: ({ children }) => <th className="border border-gray-600 px-2 py-1 bg-gray-700 text-left">{children}</th>,
+                              td: ({ children }) => <td className="border border-gray-600 px-2 py-1">{children}</td>,
+                              a: ({ children, href }) => <a href={href} className="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">{children}</a>,
+                            }}
+                          >
+                            {message.parts
+                              ?.filter((part: any) => part.type === 'text')
+                              ?.map((part: any) => part.text)
+                              ?.join('') || ''}
+                          </ReactMarkdown>
+                        </div>
+                      ) : (
+                        <p className="text-sm whitespace-pre-wrap text-white">
+                          {message.parts
+                            ?.filter((part: any) => part.type === 'text')
+                            ?.map((part: any) => part.text)
+                            ?.join('') || ''}
+                        </p>
+                      )}
                       
                       {/* AI消息的操作按钮 */}
                       {message.role === 'assistant' && (
@@ -313,7 +378,9 @@ export default function Chat() {
 
       {/* 聊天状态的固定输入框 */}
       {messages.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 z-20 px-6 py-4 bg-black">
+        <div className="fixed bottom-0 left-0 right-0 z-20 px-6 py-4" style={{
+          background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0) 100%)'
+        }}>
           <div className="w-full mx-auto">
             <form onSubmit={handleSubmit} className="relative mx-auto" style={{ maxWidth: '720px' }}>
               <textarea
@@ -349,6 +416,17 @@ export default function Chat() {
             </form>
           </div>
         </div>
+      )}
+
+      {/* 快速回到底部按钮 */}
+      {showScrollToBottom && (
+        <button
+          onClick={scrollToBottom}
+          className="fixed bottom-40 left-1/2 transform -translate-x-1/2 z-30 w-7 h-7 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg flex items-center justify-center text-white transition-colors duration-200"
+          title="Scroll to bottom"
+        >
+          <ArrowDown size={16} />
+        </button>
       )}
     </div>
   )
