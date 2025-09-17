@@ -185,16 +185,16 @@ export async function onRequest({ request, env }) {
     console.log('Converted UI messages:', uiMessages);
 
     // 查找对应的 provider
-    // const providerConfig = findProvider(selectedModel);
-    // if (!providerConfig) {
-    //   return createErrorResponse(
-    //     'UNSUPPORTED_MODEL',
-    //     `${selectedModel} model is not supported, please try using other models or contact the website developer for feedback`,
-    //     'Unknown',
-    //     selectedModel,
-    //     'Please select a supported model'
-    //   );
-    // }
+    const providerConfig = findProvider(selectedModel);
+    if (!providerConfig) {
+      return createErrorResponse(
+        'UNSUPPORTED_MODEL',
+        `${selectedModel} model is not supported, please try using other models or contact the website developer for feedback`,
+        'Unknown',
+        selectedModel,
+        'Please select a supported model'
+      );
+    }
 
     return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, uiMessages, method, contentType }), {
       status: 200,
