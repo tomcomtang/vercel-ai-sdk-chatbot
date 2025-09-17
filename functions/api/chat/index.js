@@ -38,20 +38,6 @@ function createErrorResponse (error, message, provider, model, suggestion) {
   });
 }
 
-// Validate request method and content type
-function validateRequest (request) {
-  if (request.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
-  }
-
-  const contentType = request.headers.get('content-type');
-  if (!contentType || !contentType.includes('application/json')) {
-    return new Response('Unsupported Content-Type', { status: 415 });
-  }
-
-  return null;
-}
-
 // // Validate messages array
 // const validateMessages = (messages) => {
 //   if (!messages || !Array.isArray(messages)) {
@@ -177,21 +163,25 @@ function validateRequest (request) {
 
 export async function onRequest({ request, env }) {
   try {
-    // 删除 accept-encoding 头以避免压缩问题
+  // 删除 accept-encoding 头以避免压缩问题
     request.headers.delete('accept-encoding');
-    
-    // 验证请求
-    const validationError = validateRequest(request);
-    if (validationError) return validationError;
+    console.log('request.method:', request.method);
+  
+    const contentType = request.headers.get('Content-Type');
+    const method = request.method;
+
+    if (method !== 'POST' || !contentType) {
+      return new Response('Method not allowed', { status: 405 });
+    }
 
     // 解析和验证请求体
-  const { messages } = await request.json();
-  const selectedModel = request.headers.get('X-Model');
-    
-  return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, messages }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' }
-  });
+    const { messages } = await request.json();
+    const selectedModel = request.headers.get('X-Model');
+      
+    return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, messages, method, contentType }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
     // const messagesError = validateMessages(messages);
     // if (messagesError) return messagesError;
 
