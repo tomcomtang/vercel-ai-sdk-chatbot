@@ -176,13 +176,13 @@ function validateRequest (request) {
 // }
 
 export async function onRequest({ request, env }) {
-  // try {
-  //   // 删除 accept-encoding 头以避免压缩问题
+  try {
+    // 删除 accept-encoding 头以避免压缩问题
     request.headers.delete('accept-encoding');
     
-  //   // 验证请求
-  //   // const validationError = validateRequest(request);
-  //   // if (validationError) return validationError;
+    // 验证请求
+    const validationError = validateRequest(request);
+    if (validationError) return validationError;
 
     // 解析和验证请求体
   const { messages } = await request.json();
@@ -192,7 +192,6 @@ export async function onRequest({ request, env }) {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
   });
-
     // const messagesError = validateMessages(messages);
     // if (messagesError) return messagesError;
 
@@ -232,8 +231,7 @@ export async function onRequest({ request, env }) {
 
     // // 生成 AI 响应
     // return await generateAIResponse(providerConfig, selectedModel, uiMessages);
-
-  // } catch (error) {
-  //   return handleAPIError(error, selectedModel);
-  // }
+  } catch (error) {
+    return handleAPIError(error, selectedModel);
+  }
 }
