@@ -95,7 +95,7 @@ async function generateAIResponse (providerConfig, selectedModel, uiMessages) {
 }
 
 // Handle API errors
-const handleAPIError = (error, selectedModel) => {
+function handleAPIError (error, selectedModel) {
   console.error('API Error:', error);
   
   // Handle API key errors
@@ -208,16 +208,28 @@ export async function onRequest({ request, env }) {
       );
     }
 
-    // return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, uiMessages, method, contentType, providerConfig }), {
-    //   status: 200,
-    //   headers: { 'Content-Type': 'application/json' }
-    // });
+    return new Response(JSON.stringify({
+      "error": "Internal Server Error",
+      selectedModel,
+      uiMessages,
+      method,
+      contentType,
+      providerConfig,
+      deepseek: typeof deepseek,
+      anthropic: typeof anthropic,
+      google: typeof google,
+      openai: typeof openai,
+      xai: typeof xai
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
 
-    console.log('Using provider:', providerConfig.name);
-    console.log('Using model:', selectedModel);
+    // console.log('Using provider:', providerConfig.name);
+    // console.log('Using model:', selectedModel);
 
-    // 生成 AI 响应
-    return await generateAIResponse(providerConfig, selectedModel, uiMessages);
+    // // 生成 AI 响应
+    // return await generateAIResponse(providerConfig, selectedModel, uiMessages);
   } catch (error) {
     return handleAPIError(error, selectedModel);
   }
