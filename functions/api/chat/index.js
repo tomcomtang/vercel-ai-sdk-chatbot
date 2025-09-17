@@ -181,8 +181,8 @@ export async function onRequest({ request, env }) {
     if (messagesError) return messagesError;
 
     // 转换消息为 UI 格式
-    // const uiMessages = convertToUIMessages(messages);
-    // console.log('Converted UI messages:', uiMessages);
+    const uiMessages = convertToUIMessages(messages);
+    console.log('Converted UI messages:', uiMessages);
 
     // 查找对应的 provider
     // const providerConfig = findProvider(selectedModel);
@@ -196,7 +196,7 @@ export async function onRequest({ request, env }) {
     //   );
     // }
 
-    return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, messages, method, contentType }), {
+    return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, uiMessages, method, contentType }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
