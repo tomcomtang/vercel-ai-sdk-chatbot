@@ -1,9 +1,9 @@
-import { deepseek } from '@ai-sdk/deepseek'
-import { anthropic } from '@ai-sdk/anthropic'
-import { google } from '@ai-sdk/google'
-import { openai } from '@ai-sdk/openai'
-import { xai } from '@ai-sdk/xai'
-import { streamText, convertToModelMessages } from 'ai'
+const { deepseek } = require('@ai-sdk/deepseek')
+const { anthropic } = require('@ai-sdk/anthropic')
+const { google } = require('@ai-sdk/google')
+const { openai } = require('@ai-sdk/openai')
+const { xai } = require('@ai-sdk/xai')
+const { streamText, convertToModelMessages } = require('ai')
 
 // Provider configuration
 const PROVIDERS = {
