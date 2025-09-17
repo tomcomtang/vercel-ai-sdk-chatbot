@@ -208,10 +208,10 @@ export async function onRequest({ request, env }) {
       );
     }
 
-    return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, uiMessages, method, contentType, providerConfig }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    // return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, uiMessages, method, contentType, providerConfig }), {
+    //   status: 200,
+    //   headers: { 'Content-Type': 'application/json' }
+    // });
 
     console.log('Using provider:', providerConfig.name);
     console.log('Using model:', selectedModel);
