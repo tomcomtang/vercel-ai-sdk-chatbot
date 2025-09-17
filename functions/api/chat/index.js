@@ -91,7 +91,7 @@ async function generateAIResponse (providerConfig, selectedModel, uiMessages) {
     }
   });
 
-  return new Response(JSON.stringify({ "error": "Internal Server Error" , result }), {
+  return new Response(JSON.stringify({ "error": "Internal Server Error" , result, toUIMessageStreamResponse: typeof toUIMessageStreamResponse }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
   });
@@ -212,26 +212,6 @@ export async function onRequest({ request, env }) {
         `Please set ${providerConfig.envKey} in environment variables`
       );
     }
-
-    // return new Response(JSON.stringify({
-    //   "error": "Internal Server Error",
-    //   selectedModel,
-    //   uiMessages,
-    //   method,
-    //   contentType,
-    //   providerConfig,
-    //   deepseek: typeof deepseek,
-    //   anthropic: typeof anthropic,
-    //   google: typeof google,
-    //   openai: typeof openai,
-    //   xai: typeof xai
-    // }), {
-    //   status: 200,
-    //   headers: { 'Content-Type': 'application/json' }
-    // });
-
-    // console.log('Using provider:', providerConfig.name);
-    // console.log('Using model:', selectedModel);
 
     // // 生成 AI 响应
     const result = await generateAIResponse(providerConfig, selectedModel, uiMessages);
