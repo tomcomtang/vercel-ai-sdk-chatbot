@@ -1,156 +1,190 @@
 import { deepseek } from '@ai-sdk/deepseek'
+import { anthropic } from '@ai-sdk/anthropic'
+import { google } from '@ai-sdk/google'
+import { openai } from '@ai-sdk/openai'
+import { xai } from '@ai-sdk/xai'
 import { streamText, convertToModelMessages, UIMessage } from 'ai'
 
-// Allow streaming responses up to 30 seconds
-export const maxDuration = 30;
+export const maxDuration = 30
+
+// Provider configuration
+const PROVIDERS = {
+  anthropic: { provider: anthropic, envKey: 'ANTHROPIC_API_KEY', prefixes: ['claude-'] },
+  google: { provider: google, envKey: 'GOOGLE_GENERATIVE_AI_API_KEY', prefixes: ['gemini-', 'gemma-'] },
+  deepseek: { provider: deepseek, envKey: 'DEEPSEEK_API_KEY', prefixes: ['deepseek-'] },
+  openai: { provider: openai, envKey: 'OPENAI_API_KEY', prefixes: ['gpt-', 'o1', 'o3'] },
+  xai: { provider: xai, envKey: 'XAI_API_KEY', prefixes: ['grok-'] }
+}
+
+// Helper functions
+const createErrorResponse = (error: string, message: string, provider: string, model: string, suggestion: string) => 
+  new Response(JSON.stringify({ error, message, provider, model, suggestion }), { 
+    status: 400, headers: { 'Content-Type': 'application/json' } 
+  })
+
+const findProvider = (model: string) => {
+  for (const [name, config] of Object.entries(PROVIDERS)) {
+    if (config.prefixes.some(prefix => model.startsWith(prefix))) {
+      return { name, ...config }
+    }
+  }
+  return null
+}
+
+const validateRequest = (req: Request) => {
+  if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 })
+  
+  const contentType = req.headers.get('content-type')
+  if (!contentType?.includes('application/json')) {
+    return new Response('Content-Type must be application/json', { status: 400 })
+  }
+}
+
+const validateMessages = (messages: any[]) => {
+  if (!Array.isArray(messages) || messages.length === 0) {
+    return new Response('Messages array cannot be empty', { status: 400 })
+  }
+
+  for (let i = 0; i < messages.length; i++) {
+    const msg = messages[i]
+    if (!msg?.role || !['user', 'assistant', 'system'].includes(msg.role)) {
+      return new Response(`Message at index ${i} must have a valid role`, { status: 400 })
+    }
+    
+    const hasContent = msg.content || msg.text || (msg.parts?.length > 0)
+    if (!hasContent) {
+      return new Response(`Message at index ${i} must have content`, { status: 400 })
+    }
+  }
+}
 
 export async function POST(req: Request) {
+  const selectedModel = req.headers.get('X-Model') || 'deepseek-chat'
+  
   try {
-    // 检查请求方法
-    if (req.method !== 'POST') {
-      return new Response('Method not allowed', { status: 405 });
-    }
+    // Validate request
+    const validationError = validateRequest(req)
+    if (validationError) return validationError
 
-    // 检查Content-Type
-    const contentType = req.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
-      return new Response('Content-Type must be application/json', { status: 400 });
-    }
+    // Parse and validate body
+    const body = await req.json()
+    if (!body.messages) return new Response('Messages parameter is required', { status: 400 })
+    
+    const messagesError = validateMessages(body.messages)
+    if (messagesError) return messagesError
 
-    // 解析请求体
-    let body;
-    try {
-      body = await req.json();
-    } catch (error) {
-      console.error('JSON parse error:', error);
-      return new Response('Invalid JSON', { status: 400 });
-    }
+    console.log('Selected model:', selectedModel)
 
-    // 验证请求体结构
-    if (!body || typeof body !== 'object') {
-      return new Response('Request body must be an object', { status: 400 });
-    }
-
-    const { messages } = body;
-
-    // 验证messages参数
-    if (!messages) {
-      return new Response('Missing messages parameter', { status: 400 });
-    }
-
-    if (!Array.isArray(messages)) {
-      return new Response('Messages must be an array', { status: 400 });
-    }
-
-    if (messages.length === 0) {
-      return new Response('Messages array cannot be empty', { status: 400 });
-    }
-
-    // 验证每个消息的格式
-    for (let i = 0; i < messages.length; i++) {
-      const msg = messages[i];
-      
-      if (!msg || typeof msg !== 'object') {
-        return new Response(`Message at index ${i} must be an object`, { status: 400 });
-      }
-
-      if (!msg.role || typeof msg.role !== 'string') {
-        return new Response(`Message at index ${i} must have a valid role`, { status: 400 });
-      }
-
-      if (!['user', 'assistant', 'system'].includes(msg.role)) {
-        return new Response(`Message at index ${i} has invalid role: ${msg.role}`, { status: 400 });
-      }
-
-      // 检查消息内容
-      const hasContent = msg.content || msg.text || (msg.parts && Array.isArray(msg.parts) && msg.parts.length > 0);
-      if (!hasContent) {
-        return new Response(`Message at index ${i} must have content`, { status: 400 });
-      }
-    }
-
-    console.log('Received messages:', messages);
-
-    // 检查DeepSeek API密钥
-    if (!process.env.DEEPSEEK_API_KEY) {
-      console.error('DeepSeek API key not configured');
-      return new Response('AI service not configured', { status: 500 });
-    }
-
-    console.log(messages.map((msg: any) => msg.id));
-
-    // 手动转换消息格式，确保符合 UIMessage 格式
-    const uiMessages: UIMessage[] = messages.map((msg: any) => ({
+    // Convert messages to UI format
+    const uiMessages: UIMessage[] = body.messages.map((msg: any) => ({
       id: msg.id || Math.random().toString(36).substr(2, 9),
       role: msg.role,
       parts: msg.parts || [{ type: 'text', text: msg.content || msg.text || '' }]
-    }));
+    }))
 
-    console.log('Converted UI messages:', uiMessages);
+    // Find provider
+    const providerConfig = findProvider(selectedModel)
+    console.log('Provider config:', providerConfig);
+    if (!providerConfig) {
+      return createErrorResponse(
+        'UNSUPPORTED_MODEL',
+        `${selectedModel} model is not supported, please try using other models or contact the website developer for feedback`,
+        'Unknown',
+        selectedModel,
+        'Please select a supported model'
+      )
+    }
 
-    // 获取模型配置
-    const modelName = process.env.DEEPSEEK_MODEL || 'deepseek-chat';
-    console.log('Using model:', modelName);
+    // Check API key
+    const apiKey = process.env[providerConfig.envKey]
+    if (!apiKey) {
+      return createErrorResponse(
+        'API_KEY_NOT_CONFIGURED',
+        `${providerConfig.name} model is not supported, please try using other models or contact the website developer for feedback`,
+        providerConfig.name,
+        selectedModel,
+        `Please set ${providerConfig.envKey} in environment variables`
+      )
+    }
 
-    const result = streamText({
-      model: deepseek(modelName),
+    console.log('Using provider:', providerConfig.name, 'Model:', selectedModel)
+
+    // Stream response
+    const result = await streamText({
+      model: providerConfig.provider(selectedModel),
       system: 'You are an intelligent AI assistant dedicated to helping users. Please follow these principles:\n1. Provide accurate, useful, and concise answers\n2. Maintain a friendly and professional tone\n3. Be honest when uncertain about answers\n4. Support both Chinese and English communication\n5. Provide practical advice and solutions',
       messages: convertToModelMessages(uiMessages),
       maxOutputTokens: 1000,
       temperature: 0.7,
-      onError: (error) => {
-        console.error('DeepSeek API Error:', error);
-      },
-      onFinish: (result) => {
-        console.log('DeepSeek Response finished:', {
-          model: modelName,
-          usage: result.usage,
-          finishReason: result.finishReason
-        });
-      }
-    });
+      onError: (error) => console.error('AI API Error:', error),
+      onFinish: (result) => console.log('AI Response finished:', { provider: providerConfig.name, model: selectedModel, usage: result.usage, finishReason: result.finishReason })
+    })
 
-    return result.toUIMessageStreamResponse();
+    return result.toUIMessageStreamResponse()
+
   } catch (error: any) {
-    console.error('API Error:', error);
+    console.error('API Error:', error)
     
-    // 如果是配额不足或余额不足错误，返回友好的错误信息
+    // Handle API key errors
+    if (error?.error?.error?.code === 'invalid_api_key' || 
+        error?.message?.includes('invalid_api_key') ||
+        error?.message?.includes('authentication') ||
+        error?.message?.includes('unauthorized') ||
+        error?.message?.includes('API key')) {
+      
+      return createErrorResponse(
+        'INVALID_API_KEY',
+        'API key is invalid or expired. Please check your API key configuration.',
+        'Unknown',
+        selectedModel,
+        'Please verify your API key is correct and not expired'
+      )
+    }
+    
+    // Handle quota/balance errors
     if (error?.error?.error?.code === 'insufficient_quota' || 
         error?.message?.includes('quota') || 
         error?.error?.message === 'Insufficient Balance' ||
         error?.message?.includes('Insufficient Balance')) {
-      console.log('Balance/Quota exceeded, returning mock response');
       
-      // 创建模拟的流式响应
       const mockResponse = new ReadableStream({
         start(controller) {
-          const mockText = "Sorry, your DeepSeek API account has insufficient balance. Please recharge your account to continue using the service. Visit https://platform.deepseek.com/ to manage your account balance and payment settings.";
-          
-          // 模拟流式输出
-          const words = mockText.split('');
-          let index = 0;
+          const mockText = "Sorry, your AI API account has insufficient balance. Please recharge your account to continue using the service."
+          const words = mockText.split('')
+          let index = 0
           
           const interval = setInterval(() => {
             if (index < words.length) {
-              controller.enqueue(new TextEncoder().encode(`data: {"type":"text-delta","id":"0","delta":"${words[index]}"}\n\n`));
-              index++;
+              controller.enqueue(new TextEncoder().encode(`data: {"type":"text-delta","id":"0","delta":"${words[index]}"}\n\n`))
+              index++
             } else {
-              controller.enqueue(new TextEncoder().encode('data: [DONE]\n\n'));
-              controller.close();
-              clearInterval(interval);
+              controller.enqueue(new TextEncoder().encode('data: [DONE]\n\n'))
+              controller.close()
+              clearInterval(interval)
             }
-          }, 50); // 每50ms输出一个字符
+          }, 50)
         }
-      });
+      })
       
       return new Response(mockResponse, {
-        headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-        },
-      });
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+      })
     }
     
-    // 其他错误返回通用错误信息
-    return new Response('Internal Server Error', { status: 500 });
+    // Handle rate limit errors
+    if (error?.error?.error?.code === 'rate_limit_exceeded' || 
+        error?.message?.includes('rate_limit') ||
+        error?.message?.includes('too many requests')) {
+      
+      return createErrorResponse(
+        'RATE_LIMIT_EXCEEDED',
+        'API rate limit exceeded. Please try again later.',
+        'Unknown',
+        selectedModel,
+        'Please wait a moment before making another request'
+      )
+    }
+    
+    return new Response('Internal Server Error', { status: 500 })
   }
 }
