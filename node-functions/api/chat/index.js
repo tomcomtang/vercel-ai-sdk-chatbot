@@ -181,8 +181,8 @@ export default async function onRequest({ request, env }) {
     request.headers.delete('accept-encoding');
     
     // 验证请求
-    const validationError = validateRequest(request);
-    if (validationError) return validationError;
+    // const validationError = validateRequest(request);
+    // if (validationError) return validationError;
 
     // 解析和验证请求体
     const body = await request.json();
