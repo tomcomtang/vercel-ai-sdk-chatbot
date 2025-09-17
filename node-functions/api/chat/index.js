@@ -176,18 +176,18 @@ const handleAPIError = (error, selectedModel) => {
 }
 
 export default async function onRequest({ request, env }) {
-  try {
-    // 删除 accept-encoding 头以避免压缩问题
-    request.headers.delete('accept-encoding');
+  // try {
+  //   // 删除 accept-encoding 头以避免压缩问题
+  //   request.headers.delete('accept-encoding');
     
-    // 验证请求
-    // const validationError = validateRequest(request);
-    // if (validationError) return validationError;
+  //   // 验证请求
+  //   // const validationError = validateRequest(request);
+  //   // if (validationError) return validationError;
 
-    // 解析和验证请求体
-    const body = await request.json();
-    const { messages } = body;
-    const selectedModel = request.headers.get('X-Model');
+  //   // 解析和验证请求体
+  //   const body = await request.json();
+  //   const { messages } = body;
+  //   const selectedModel = request.headers.get('X-Model');
     
     return new Response(JSON.stringify({ "error": "Internal Server Error", "selectedModel": selectedModel, "messages": messages }), {
       status: 200,
@@ -234,23 +234,7 @@ export default async function onRequest({ request, env }) {
     // // 生成 AI 响应
     // return await generateAIResponse(providerConfig, selectedModel, uiMessages);
 
-  } catch (error) {
-    return handleAPIError(error, selectedModel);
-  }
+  // } catch (error) {
+  //   return handleAPIError(error, selectedModel);
+  // }
 }
-
-// export default async function onRequest({ request, env }) {
-//   console.log('google', google);
-//   console.log('anthropic', anthropic);
-//   console.log('deepseek', deepseek);
-//   console.log('openai', openai);
-//   console.log('xai', xai);
-//   console.log('streamText', streamText);
-//   console.log('convertToModelMessages', convertToModelMessages);
-//   console.log('env', env);
-//   console.log('request', request);
-//   return new Response(JSON.stringify({"error":"Internal Server Error","message":"selectedModel is not defined"}), {
-//     status: 200,
-//     headers: { 'Content-Type': 'application/json' }
-//   });
-// }
