@@ -175,7 +175,7 @@ function validateRequest (request) {
 //   return new Response('Internal Server Error', { status: 500 });
 // }
 
-export default async function onRequest({ request, env }) {
+export async function onRequest({ request, env }) {
   // try {
   //   // 删除 accept-encoding 头以避免压缩问题
     request.headers.delete('accept-encoding');
@@ -184,14 +184,14 @@ export default async function onRequest({ request, env }) {
   //   // const validationError = validateRequest(request);
   //   // if (validationError) return validationError;
 
-  //   // 解析和验证请求体
-  // const { messages } = await request.json();
+    // 解析和验证请求体
+  const { messages } = await request.json();
   const selectedModel = request.headers.get('X-Model');
     
-  return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+  return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, messages }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' }
+  });
 
     // const messagesError = validateMessages(messages);
     // if (messagesError) return messagesError;
