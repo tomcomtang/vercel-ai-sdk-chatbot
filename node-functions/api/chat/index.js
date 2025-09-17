@@ -1,56 +1,56 @@
-// const { deepseek } = require('@ai-sdk/deepseek')
-// const { anthropic } = require('@ai-sdk/anthropic')
-// const { google } = require('@ai-sdk/google')
-// const { openai } = require('@ai-sdk/openai')
-// const { xai } = require('@ai-sdk/xai')
-// const { streamText, convertToModelMessages } = require('ai')
+const { deepseek } = require('@ai-sdk/deepseek')
+const { anthropic } = require('@ai-sdk/anthropic')
+const { google } = require('@ai-sdk/google')
+const { openai } = require('@ai-sdk/openai')
+const { xai } = require('@ai-sdk/xai')
+const { streamText, convertToModelMessages } = require('ai')
 
-// // Provider configuration
-// const PROVIDERS = {
-//   anthropic: { provider: anthropic, envKey: 'ANTHROPIC_API_KEY', prefixes: ['claude-'] },
-//   google: { provider: google, envKey: 'GOOGLE_GENERATIVE_AI_API_KEY', prefixes: ['gemini-', 'gemma-'] },
-//   deepseek: { provider: deepseek, envKey: 'DEEPSEEK_API_KEY', prefixes: ['deepseek-'] },
-//   openai: { provider: openai, envKey: 'OPENAI_API_KEY', prefixes: ['gpt-', 'o1', 'o3'] },
-//   xai: { provider: xai, envKey: 'XAI_API_KEY', prefixes: ['grok-'] }
-// }
+// Provider configuration
+const PROVIDERS = {
+  anthropic: { provider: anthropic, envKey: 'ANTHROPIC_API_KEY', prefixes: ['claude-'] },
+  google: { provider: google, envKey: 'GOOGLE_GENERATIVE_AI_API_KEY', prefixes: ['gemini-', 'gemma-'] },
+  deepseek: { provider: deepseek, envKey: 'DEEPSEEK_API_KEY', prefixes: ['deepseek-'] },
+  openai: { provider: openai, envKey: 'OPENAI_API_KEY', prefixes: ['gpt-', 'o1', 'o3'] },
+  xai: { provider: xai, envKey: 'XAI_API_KEY', prefixes: ['grok-'] }
+}
 
-// // Helper to find provider based on model name
-// const findProvider = (model) => {
-//   for (const [name, config] of Object.entries(PROVIDERS)) {
-//     if (config.prefixes.some(prefix => model.startsWith(prefix))) {
-//       return { name, ...config };
-//     }
-//   }
-//   return null;
-// }
+// Helper to find provider based on model name
+function findProvider (model) {
+  for (const [name, config] of Object.entries(PROVIDERS)) {
+    if (config.prefixes.some(prefix => model.startsWith(prefix))) {
+      return { name, ...config };
+    }
+  }
+  return null;
+}
 
-// // Helper to create consistent error responses
-// const createErrorResponse = (error, message, provider, model, suggestion) => {
-//   return new Response(JSON.stringify({ 
-//     error, 
-//     message, 
-//     provider, 
-//     model, 
-//     suggestion 
-//   }), {
-//     status: 400,
-//     headers: { 'Content-Type': 'application/json' }
-//   });
-// }
+// Helper to create consistent error responses
+function createErrorResponse (error, message, provider, model, suggestion) {
+  return new Response(JSON.stringify({ 
+    error, 
+    message, 
+    provider, 
+    model, 
+    suggestion 
+  }), {
+    status: 400,
+    headers: { 'Content-Type': 'application/json' }
+  });
+}
 
-// // Validate request method and content type
-// const validateRequest = (request) => {
-//   if (request.method !== 'POST') {
-//     return new Response('Method not allowed', { status: 405 });
-//   }
+// Validate request method and content type
+function validateRequest (request) {
+  if (request.method !== 'POST') {
+    return new Response('Method not allowed', { status: 405 });
+  }
 
-//   const contentType = request.headers.get('content-type');
-//   if (!contentType || !contentType.includes('application/json')) {
-//     return new Response('Unsupported Content-Type', { status: 415 });
-//   }
+  const contentType = request.headers.get('content-type');
+  if (!contentType || !contentType.includes('application/json')) {
+    return new Response('Unsupported Content-Type', { status: 415 });
+  }
 
-//   return null;
-// }
+  return null;
+}
 
 // // Validate messages array
 // const validateMessages = (messages) => {
@@ -178,18 +178,17 @@
 export default async function onRequest({ request, env }) {
   // try {
   //   // 删除 accept-encoding 头以避免压缩问题
-  //   request.headers.delete('accept-encoding');
+    request.headers.delete('accept-encoding');
     
   //   // 验证请求
   //   // const validationError = validateRequest(request);
   //   // if (validationError) return validationError;
 
   //   // 解析和验证请求体
-    const body = await request.json();
-    const { messages } = body;
-    const selectedModel = request.headers.get('X-Model');
+  // const { messages } = await request.json();
+  const selectedModel = request.headers.get('X-Model');
     
-  return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, messages }), {
+  return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
