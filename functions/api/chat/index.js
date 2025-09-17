@@ -38,28 +38,28 @@ function createErrorResponse (error, message, provider, model, suggestion) {
   });
 }
 
-// // Validate messages array
-// const validateMessages = (messages) => {
-//   if (!messages || !Array.isArray(messages)) {
-//     return new Response('Invalid request body: messages array is required', { status: 400 });
-//   }
-//   if (messages.length === 0) {
-//     return new Response('Messages array cannot be empty', { status: 400 });
-//   }
+// Validate messages array
+const validateMessages = (messages) => {
+  if (!messages || !Array.isArray(messages)) {
+    return new Response('Invalid request body: messages array is required', { status: 400 });
+  }
+  if (messages.length === 0) {
+    return new Response('Messages array cannot be empty', { status: 400 });
+  }
 
-//   for (let i = 0; i < messages.length; i++) {
-//     const msg = messages[i];
-//     if (!msg || typeof msg !== 'object' || !msg.role || typeof msg.role !== 'string' || !['user', 'assistant', 'system'].includes(msg.role)) {
-//       return new Response(`Message at index ${i} must be a valid object with a role`, { status: 400 });
-//     }
-//     const hasContent = msg.content || msg.text || (msg.parts && Array.isArray(msg.parts) && msg.parts.length > 0);
-//     if (!hasContent) {
-//       return new Response(`Message at index ${i} must have content`, { status: 400 });
-//     }
-//   }
+  for (let i = 0; i < messages.length; i++) {
+    const msg = messages[i];
+    if (!msg || typeof msg !== 'object' || !msg.role || typeof msg.role !== 'string' || !['user', 'assistant', 'system'].includes(msg.role)) {
+      return new Response(`Message at index ${i} must be a valid object with a role`, { status: 400 });
+    }
+    const hasContent = msg.content || msg.text || (msg.parts && Array.isArray(msg.parts) && msg.parts.length > 0);
+    if (!hasContent) {
+      return new Response(`Message at index ${i} must have content`, { status: 400 });
+    }
+  }
 
-//   return null;
-// }
+  return null;
+}
 
 // // Convert messages to UI format
 // const convertToUIMessages = (messages) => {
@@ -176,31 +176,30 @@ export async function onRequest({ request, env }) {
     if (method !== 'POST' || !contentType) {
       return new Response('Method not allowed', { status: 405 });
     }      
+
+    const messagesError = validateMessages(messages);
+    if (messagesError) return messagesError;
+
+    // 转换消息为 UI 格式
+    const uiMessages = convertToUIMessages(messages);
+    console.log('Converted UI messages:', uiMessages);
+
+    // 查找对应的 provider
+    const providerConfig = findProvider(selectedModel);
+    if (!providerConfig) {
+      return createErrorResponse(
+        'UNSUPPORTED_MODEL',
+        `${selectedModel} model is not supported, please try using other models or contact the website developer for feedback`,
+        'Unknown',
+        selectedModel,
+        'Please select a supported model'
+      );
+    }
+
     return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, messages, method, contentType }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
-    // const messagesError = validateMessages(messages);
-    // if (messagesError) return messagesError;
-
-    // console.log('Received messages:', messages);
-    // console.log('Selected model:', selectedModel);
-
-    // // 转换消息为 UI 格式
-    // const uiMessages = convertToUIMessages(messages);
-    // console.log('Converted UI messages:', uiMessages);
-
-    // // 查找对应的 provider
-    // const providerConfig = findProvider(selectedModel);
-    // if (!providerConfig) {
-    //   return createErrorResponse(
-    //     'UNSUPPORTED_MODEL',
-    //     `${selectedModel} model is not supported, please try using other models or contact the website developer for feedback`,
-    //     'Unknown',
-    //     selectedModel,
-    //     'Please select a supported model'
-    //   );
-    // }
 
     // // 验证 API 密钥
     // const apiKey = env[providerConfig.envKey];
