@@ -185,11 +185,11 @@ export default async function onRequest({ request, env }) {
   //   // if (validationError) return validationError;
 
   //   // 解析和验证请求体
-    // const body = await request.json();
-    // const { messages } = body;
-    // const selectedModel = request.headers.get('X-Model');
+    const body = await request.json();
+    const { messages } = body;
+    const selectedModel = request.headers.get('X-Model');
     
-  return new Response(JSON.stringify({ "error": "Internal Server Error" }), {
+  return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, messages }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
