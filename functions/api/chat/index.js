@@ -70,96 +70,96 @@ function convertToUIMessages (messages) {
   }));
 }
 
-// // Generate AI response using streamText
-// const generateAIResponse = async (providerConfig, selectedModel, uiMessages) => {
-//   const result = await streamText({
-//     model: providerConfig.provider(selectedModel),
-//     system: 'You are an intelligent AI assistant dedicated to helping users. Please follow these principles:\n1. Provide accurate, useful, and concise answers\n2. Maintain a friendly and professional tone\n3. Be honest when uncertain about answers\n4. Support both Chinese and English communication\n5. Provide practical advice and solutions',
-//     messages: convertToModelMessages(uiMessages),
-//     maxOutputTokens: 1000,
-//     temperature: 0.7,
-//     onError: (error) => {
-//       console.error('AI API Error:', error);
-//     },
-//     onFinish: (result) => {
-//       console.log('AI Response finished:', {
-//         provider: providerConfig.name,
-//         model: selectedModel,
-//         usage: result.usage,
-//         finishReason: result.finishReason
-//       });
-//     }
-//   });
+// Generate AI response using streamText
+async function generateAIResponse (providerConfig, selectedModel, uiMessages) {
+  const result = await streamText({
+    model: providerConfig.provider(selectedModel),
+    system: 'You are an intelligent AI assistant dedicated to helping users. Please follow these principles:\n1. Provide accurate, useful, and concise answers\n2. Maintain a friendly and professional tone\n3. Be honest when uncertain about answers\n4. Support both Chinese and English communication\n5. Provide practical advice and solutions',
+    messages: convertToModelMessages(uiMessages),
+    maxOutputTokens: 1000,
+    temperature: 0.7,
+    onError: (error) => {
+      console.error('AI API Error:', error);
+    },
+    onFinish: (result) => {
+      console.log('AI Response finished:', {
+        provider: providerConfig.name,
+        model: selectedModel,
+        usage: result.usage,
+        finishReason: result.finishReason
+      });
+    }
+  });
 
-//   return result.toUIMessageStreamResponse();
-// }
+  return result.toUIMessageStreamResponse();
+}
 
-// // Handle API errors
-// const handleAPIError = (error, selectedModel) => {
-//   console.error('API Error:', error);
+// Handle API errors
+const handleAPIError = (error, selectedModel) => {
+  console.error('API Error:', error);
   
-//   // Handle API key errors
-//   if (error?.error?.error?.code === 'invalid_api_key' || 
-//       error?.message?.includes('invalid_api_key') ||
-//       error?.message?.includes('authentication') ||
-//       error?.message?.includes('unauthorized') ||
-//       error?.message?.includes('API key')) {
+  // Handle API key errors
+  if (error?.error?.error?.code === 'invalid_api_key' || 
+      error?.message?.includes('invalid_api_key') ||
+      error?.message?.includes('authentication') ||
+      error?.message?.includes('unauthorized') ||
+      error?.message?.includes('API key')) {
     
-//     return createErrorResponse(
-//       'INVALID_API_KEY',
-//       'API key is invalid or expired. Please check your API key configuration.',
-//       'Unknown',
-//       selectedModel,
-//       'Please verify your API key is correct and not expired'
-//     );
-//   }
+    return createErrorResponse(
+      'INVALID_API_KEY',
+      'API key is invalid or expired. Please check your API key configuration.',
+      'Unknown',
+      selectedModel,
+      'Please verify your API key is correct and not expired'
+    );
+  }
   
-//   // Handle quota/balance errors
-//   if (error?.error?.error?.code === 'insufficient_quota' || 
-//       error?.message?.includes('quota') || 
-//       error?.error?.message === 'Insufficient Balance' ||
-//       error?.message?.includes('Insufficient Balance')) {
+  // Handle quota/balance errors
+  if (error?.error?.error?.code === 'insufficient_quota' || 
+      error?.message?.includes('quota') || 
+      error?.error?.message === 'Insufficient Balance' ||
+      error?.message?.includes('Insufficient Balance')) {
     
-//     const mockResponse = new ReadableStream({
-//       start(controller) {
-//         const mockText = "Sorry, your AI API account has insufficient balance. Please recharge your account to continue using the service.";
-//         const words = mockText.split('');
-//         let index = 0;
+    const mockResponse = new ReadableStream({
+      start(controller) {
+        const mockText = "Sorry, your AI API account has insufficient balance. Please recharge your account to continue using the service.";
+        const words = mockText.split('');
+        let index = 0;
         
-//         const interval = setInterval(() => {
-//           if (index < words.length) {
-//             controller.enqueue(new TextEncoder().encode(`data: {"type":"text-delta","id":"0","delta":"${words[index]}"}\n\n`));
-//             index++;
-//           } else {
-//             controller.enqueue(new TextEncoder().encode('data: [DONE]\n\n'));
-//             controller.close();
-//             clearInterval(interval);
-//           }
-//         }, 50);
-//       }
-//     });
+        const interval = setInterval(() => {
+          if (index < words.length) {
+            controller.enqueue(new TextEncoder().encode(`data: {"type":"text-delta","id":"0","delta":"${words[index]}"}\n\n`));
+            index++;
+          } else {
+            controller.enqueue(new TextEncoder().encode('data: [DONE]\n\n'));
+            controller.close();
+            clearInterval(interval);
+          }
+        }, 50);
+      }
+    });
     
-//     return new Response(mockResponse, {
-//       headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-//     });
-//   }
+    return new Response(mockResponse, {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+    });
+  }
   
-//   // Handle rate limit errors
-//   if (error?.error?.error?.code === 'rate_limit_exceeded' || 
-//       error?.message?.includes('rate_limit') ||
-//       error?.message?.includes('too many requests')) {
+  // Handle rate limit errors
+  if (error?.error?.error?.code === 'rate_limit_exceeded' || 
+      error?.message?.includes('rate_limit') ||
+      error?.message?.includes('too many requests')) {
     
-//     return createErrorResponse(
-//       'RATE_LIMIT_EXCEEDED',
-//       'API rate limit exceeded. Please try again later.',
-//       'Unknown',
-//       selectedModel,
-//       'Please wait a moment before making another request'
-//     );
-//   }
+    return createErrorResponse(
+      'RATE_LIMIT_EXCEEDED',
+      'API rate limit exceeded. Please try again later.',
+      'Unknown',
+      selectedModel,
+      'Please wait a moment before making another request'
+    );
+  }
   
-//   return new Response('Internal Server Error', { status: 500 });
-// }
+  return new Response('Internal Server Error', { status: 500 });
+}
 
 export async function onRequest({ request, env }) {
   
@@ -213,11 +213,11 @@ export async function onRequest({ request, env }) {
       headers: { 'Content-Type': 'application/json' }
     });
 
-    // console.log('Using provider:', providerConfig.name);
-    // console.log('Using model:', selectedModel);
+    console.log('Using provider:', providerConfig.name);
+    console.log('Using model:', selectedModel);
 
-    // // 生成 AI 响应
-    // return await generateAIResponse(providerConfig, selectedModel, uiMessages);
+    // 生成 AI 响应
+    return await generateAIResponse(providerConfig, selectedModel, uiMessages);
   } catch (error) {
     return handleAPIError(error, selectedModel);
   }
