@@ -91,7 +91,7 @@ async function generateAIResponse (providerConfig, selectedModel, uiMessages) {
     }
   });
 
-  return new Response(JSON.stringify({ "error": "Internal Server Error" , toUIMessageStreamResponse: typeof result.toUIMessageStreamResponse }), {
+  return new Response(JSON.stringify({ "error": "Internal Server Error" , "toUIMessageStreamResponse": typeof result.toUIMessageStreamResponse }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
   });
