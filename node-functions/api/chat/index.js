@@ -187,47 +187,52 @@ export default async function onRequest({ request, env }) {
     // 解析和验证请求体
     const body = await request.json();
     const { messages } = body;
-    const selectedModel = request.headers.get('X-Model') || 'deepseek-chat';
+    const selectedModel = request.headers.get('X-Model');
+    
+    return new Response(JSON.stringify({ "error": "Internal Server Error", "message": selectedModel }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
 
-    const messagesError = validateMessages(messages);
-    if (messagesError) return messagesError;
+    // const messagesError = validateMessages(messages);
+    // if (messagesError) return messagesError;
 
-    console.log('Received messages:', messages);
-    console.log('Selected model:', selectedModel);
+    // console.log('Received messages:', messages);
+    // console.log('Selected model:', selectedModel);
 
-    // 转换消息为 UI 格式
-    const uiMessages = convertToUIMessages(messages);
-    console.log('Converted UI messages:', uiMessages);
+    // // 转换消息为 UI 格式
+    // const uiMessages = convertToUIMessages(messages);
+    // console.log('Converted UI messages:', uiMessages);
 
-    // 查找对应的 provider
-    const providerConfig = findProvider(selectedModel);
-    if (!providerConfig) {
-      return createErrorResponse(
-        'UNSUPPORTED_MODEL',
-        `${selectedModel} model is not supported, please try using other models or contact the website developer for feedback`,
-        'Unknown',
-        selectedModel,
-        'Please select a supported model'
-      );
-    }
+    // // 查找对应的 provider
+    // const providerConfig = findProvider(selectedModel);
+    // if (!providerConfig) {
+    //   return createErrorResponse(
+    //     'UNSUPPORTED_MODEL',
+    //     `${selectedModel} model is not supported, please try using other models or contact the website developer for feedback`,
+    //     'Unknown',
+    //     selectedModel,
+    //     'Please select a supported model'
+    //   );
+    // }
 
-    // 验证 API 密钥
-    const apiKey = env[providerConfig.envKey];
-    if (!apiKey) {
-      return createErrorResponse(
-        'API_KEY_NOT_CONFIGURED',
-        `${providerConfig.name} model is not supported, please try using other models or contact the website developer for feedback`,
-        providerConfig.name,
-        selectedModel,
-        `Please set ${providerConfig.envKey} in environment variables`
-      );
-    }
+    // // 验证 API 密钥
+    // const apiKey = env[providerConfig.envKey];
+    // if (!apiKey) {
+    //   return createErrorResponse(
+    //     'API_KEY_NOT_CONFIGURED',
+    //     `${providerConfig.name} model is not supported, please try using other models or contact the website developer for feedback`,
+    //     providerConfig.name,
+    //     selectedModel,
+    //     `Please set ${providerConfig.envKey} in environment variables`
+    //   );
+    // }
 
-    console.log('Using provider:', providerConfig.name);
-    console.log('Using model:', selectedModel);
+    // console.log('Using provider:', providerConfig.name);
+    // console.log('Using model:', selectedModel);
 
-    // 生成 AI 响应
-    return await generateAIResponse(providerConfig, selectedModel, uiMessages);
+    // // 生成 AI 响应
+    // return await generateAIResponse(providerConfig, selectedModel, uiMessages);
 
   } catch (error) {
     return handleAPIError(error, selectedModel);
@@ -244,7 +249,7 @@ export default async function onRequest({ request, env }) {
 //   console.log('convertToModelMessages', convertToModelMessages);
 //   console.log('env', env);
 //   console.log('request', request);
-//   return new Response(JSON.stringify({ message: 'Hello from EdgeOne Pages Action!' }), {
+//   return new Response(JSON.stringify({"error":"Internal Server Error","message":"selectedModel is not defined"}), {
 //     status: 200,
 //     headers: { 'Content-Type': 'application/json' }
 //   });
