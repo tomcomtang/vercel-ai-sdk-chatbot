@@ -2,16 +2,17 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Bot, Home } from 'lucide-react'
+import { Bot, Github } from 'lucide-react'
 
 export default function Navigation() {
   const pathname = usePathname()
 
   const navItems = [
     {
-      name: 'Home',
-      href: '/',
-      icon: Home,
+      name: 'GitHub',
+      href: 'https://github.com/tomcomtang/vercel-ai-sdk-chatbot',
+      icon: Github,
+      external: true,
     },
   ]
 
@@ -35,16 +36,22 @@ export default function Navigation() {
             const Icon = item.icon
             const isActive = pathname === item.href
             
+            const linkProps = {
+              key: item.name,
+              href: item.href,
+              className: `flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                isActive
+                  ? 'text-white'
+                  : 'text-gray-400 hover:text-white'
+              }`,
+              ...(item.external && {
+                target: '_blank',
+                rel: 'noopener noreferrer'
+              })
+            }
+            
             return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200 ${
-                  isActive
-                    ? 'text-white'
-                    : 'text-gray-400 hover:text-white'
-                }`}
-              >
+              <Link {...linkProps}>
                 <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-gray-800 border border-gray-700">
                   <Icon size={16} />
                 </div>
