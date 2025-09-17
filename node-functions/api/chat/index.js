@@ -189,7 +189,7 @@ export default async function onRequest({ request, env }) {
     const { messages } = body;
     const selectedModel = request.headers.get('X-Model');
     
-    return new Response(JSON.stringify({ "error": "Internal Server Error", "message": selectedModel }), {
+    return new Response(JSON.stringify({ "error": "Internal Server Error", "selectedModel": selectedModel, "messages": messages }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
