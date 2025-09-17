@@ -234,7 +234,7 @@
 //   }
 // }
 
-export async function onRequest({ request, env }) {
+export default async function onRequest({ request, env }) {
   return new Response(JSON.stringify({ message: 'Hello from EdgeOne Pages Action!' }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
