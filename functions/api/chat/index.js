@@ -39,7 +39,7 @@ function createErrorResponse (error, message, provider, model, suggestion) {
 }
 
 // Validate messages array
-const validateMessages = (messages) => {
+function validateMessages (messages) {
   if (!messages || !Array.isArray(messages)) {
     return new Response('Invalid request body: messages array is required', { status: 400 });
   }
@@ -61,14 +61,14 @@ const validateMessages = (messages) => {
   return null;
 }
 
-// // Convert messages to UI format
-// const convertToUIMessages = (messages) => {
-//   return messages.map((msg) => ({
-//     id: msg.id || Math.random().toString(36).substr(2, 9),
-//     role: msg.role,
-//     parts: msg.parts || [{ type: 'text', text: msg.content || msg.text || '' }]
-//   }));
-// }
+// Convert messages to UI format
+function convertToUIMessages (messages) {
+  return messages.map((msg) => ({
+    id: msg.id || Math.random().toString(36).substr(2, 9),
+    role: msg.role,
+    parts: msg.parts || [{ type: 'text', text: msg.content || msg.text || '' }]
+  }));
+}
 
 // // Generate AI response using streamText
 // const generateAIResponse = async (providerConfig, selectedModel, uiMessages) => {
@@ -181,20 +181,20 @@ export async function onRequest({ request, env }) {
     if (messagesError) return messagesError;
 
     // 转换消息为 UI 格式
-    const uiMessages = convertToUIMessages(messages);
-    console.log('Converted UI messages:', uiMessages);
+    // const uiMessages = convertToUIMessages(messages);
+    // console.log('Converted UI messages:', uiMessages);
 
     // 查找对应的 provider
-    const providerConfig = findProvider(selectedModel);
-    if (!providerConfig) {
-      return createErrorResponse(
-        'UNSUPPORTED_MODEL',
-        `${selectedModel} model is not supported, please try using other models or contact the website developer for feedback`,
-        'Unknown',
-        selectedModel,
-        'Please select a supported model'
-      );
-    }
+    // const providerConfig = findProvider(selectedModel);
+    // if (!providerConfig) {
+    //   return createErrorResponse(
+    //     'UNSUPPORTED_MODEL',
+    //     `${selectedModel} model is not supported, please try using other models or contact the website developer for feedback`,
+    //     'Unknown',
+    //     selectedModel,
+    //     'Please select a supported model'
+    //   );
+    // }
 
     return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, messages, method, contentType }), {
       status: 200,
