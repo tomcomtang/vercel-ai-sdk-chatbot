@@ -194,7 +194,7 @@ export async function onRequest({ request, env }) {
 
     // 验证 API 密钥
     const apiKey = env[providerConfig.envKey];
-    if (!apiKey) {
+  if (!apiKey) {
       return createErrorResponse(
         'API_KEY_NOT_CONFIGURED',
         `${providerConfig.name} model is not supported, please try using other models or contact the website developer for feedback`,
