@@ -91,7 +91,12 @@ async function generateAIResponse (providerConfig, selectedModel, uiMessages) {
     }
   });
 
-  return result.toUIMessageStreamResponse();
+  return new Response(JSON.stringify({ "error": "Internal Server Error" , result }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' }
+  });
+
+  // return result.toUIMessageStreamResponse();
 }
 
 // Handle API errors
@@ -208,28 +213,29 @@ export async function onRequest({ request, env }) {
       );
     }
 
-    return new Response(JSON.stringify({
-      "error": "Internal Server Error",
-      selectedModel,
-      uiMessages,
-      method,
-      contentType,
-      providerConfig,
-      deepseek: typeof deepseek,
-      anthropic: typeof anthropic,
-      google: typeof google,
-      openai: typeof openai,
-      xai: typeof xai
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    // return new Response(JSON.stringify({
+    //   "error": "Internal Server Error",
+    //   selectedModel,
+    //   uiMessages,
+    //   method,
+    //   contentType,
+    //   providerConfig,
+    //   deepseek: typeof deepseek,
+    //   anthropic: typeof anthropic,
+    //   google: typeof google,
+    //   openai: typeof openai,
+    //   xai: typeof xai
+    // }), {
+    //   status: 200,
+    //   headers: { 'Content-Type': 'application/json' }
+    // });
 
     // console.log('Using provider:', providerConfig.name);
     // console.log('Using model:', selectedModel);
 
     // // 生成 AI 响应
-    // return await generateAIResponse(providerConfig, selectedModel, uiMessages);
+    const result = await generateAIResponse(providerConfig, selectedModel, uiMessages);
+    return result;
   } catch (error) {
     return handleAPIError(error, selectedModel);
   }
