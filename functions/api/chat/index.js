@@ -162,6 +162,10 @@ function createErrorResponse (error, message, provider, model, suggestion) {
 // }
 
 export async function onRequest({ request, env }) {
+  
+  // 删除 accept-encoding 头以避免压缩问题
+  request.headers.delete('accept-encoding');
+  
   // 解析和验证请求体
   const { messages } = await request.json();
   const selectedModel = request.headers.get('X-Model');
@@ -169,8 +173,6 @@ export async function onRequest({ request, env }) {
   const method = request.method;
 
   try {
-  // 删除 accept-encoding 头以避免压缩问题
-    request.headers.delete('accept-encoding');
     if (method !== 'POST' || !contentType) {
       return new Response('Method not allowed', { status: 405 });
     }      
