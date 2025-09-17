@@ -1,9 +1,9 @@
-// const { deepseek } = require('@ai-sdk/deepseek')
-// const { anthropic } = require('@ai-sdk/anthropic')
-// const { google } = require('@ai-sdk/google')
-// const { openai } = require('@ai-sdk/openai')
-// const { xai } = require('@ai-sdk/xai')
-// const { streamText, convertToModelMessages } = require('ai')
+const { deepseek } = require('@ai-sdk/deepseek')
+const { anthropic } = require('@ai-sdk/anthropic')
+const { google } = require('@ai-sdk/google')
+const { openai } = require('@ai-sdk/openai')
+const { xai } = require('@ai-sdk/xai')
+const { streamText, convertToModelMessages } = require('ai')
 
 // // Provider configuration
 // const PROVIDERS = {
@@ -235,6 +235,15 @@
 // }
 
 export default async function onRequest({ request, env }) {
+  console.log('google', google);
+  console.log('anthropic', anthropic);
+  console.log('deepseek', deepseek);
+  console.log('openai', openai);
+  console.log('xai', xai);
+  console.log('streamText', streamText);
+  console.log('convertToModelMessages', convertToModelMessages);
+  console.log('env', env);
+  console.log('request', request);
   return new Response(JSON.stringify({ message: 'Hello from EdgeOne Pages Action!' }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
