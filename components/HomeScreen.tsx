@@ -10,6 +10,8 @@ interface HomeScreenProps {
   onModelChange: (model: string) => void
   isTransitioning: boolean
   onTransitionStart: () => void
+  initialValue?: string
+  onModelSelectorOpenChange?: (isOpen: boolean) => void
 }
 
 export default function HomeScreen({ 
@@ -18,7 +20,9 @@ export default function HomeScreen({
   selectedModel, 
   onModelChange,
   isTransitioning,
-  onTransitionStart
+  onTransitionStart,
+  initialValue,
+  onModelSelectorOpenChange
 }: HomeScreenProps) {
   const [placeholderText, setPlaceholderText] = useState('')
   const [showCursor, setShowCursor] = useState(true)
@@ -82,7 +86,7 @@ export default function HomeScreen({
           AI Chatbot
         </h1>
         <div 
-          className="text-lg text-gray-300 max-w-2xl mx-auto px-6"
+          className="text-sm text-gray-300 max-w-2xl mx-auto px-6"
           style={{
             textShadow: '0 0 10px rgba(255, 255, 255, 0.3)',
           }}
@@ -97,6 +101,7 @@ export default function HomeScreen({
         isTransitioning ? 'transform translate-y-32' : 'transform translate-y-0'
       }`}>
         <ChatInput
+          key={`home-${initialValue}`}
           onSubmit={handleSubmit}
           status={status}
           selectedModel={selectedModel}
@@ -104,6 +109,8 @@ export default function HomeScreen({
           placeholder={`${placeholderText}${showCursor ? '|' : ''}`}
           className="relative"
           onFocus={handleInputFocus}
+          initialValue={initialValue}
+          onModelSelectorOpenChange={onModelSelectorOpenChange}
         />
       </div>
     </div>

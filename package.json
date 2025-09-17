@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "export": "next build && echo 'Static files exported to ./out directory'",
+    "build:static": "NODE_ENV=production next build && echo 'Static files exported to ./out directory'",
+    "export": "npm run build:static",
     "start": "next start",
     "lint": "next lint"
   },

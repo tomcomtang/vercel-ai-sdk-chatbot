@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useChatLogic } from '@/hooks/useChatLogic'
 import { useScrollLogic } from '@/hooks/useScrollLogic'
 import HomeScreen from '@/components/HomeScreen'
@@ -13,6 +13,7 @@ export default function Chat() {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [showChat, setShowChat] = useState(false)
   const [hideHomeScreen, setHideHomeScreen] = useState(false)
+  const [isModelSelectorOpen, setIsModelSelectorOpen] = useState(false)
 
   // 使用自定义 hooks
   const {
@@ -22,6 +23,7 @@ export default function Chat() {
     selectedModel,
     setSelectedModel,
     errorMessage,
+    lastUserMessage,
     handleSendMessage,
     handleRegenerate,
     clearError,
@@ -29,6 +31,11 @@ export default function Chat() {
   } = useChatLogic()
 
   const { showScrollToBottom, scrollToBottom, messagesEndRef } = useScrollLogic(messages.length, status)
+
+  // 调试：监听 lastUserMessage 变化
+  useEffect(() => {
+    console.log('page.tsx: lastUserMessage changed to:', lastUserMessage)
+  }, [lastUserMessage])
 
   // 处理消息发送
   const handleMessageSubmit = (text: string) => {
@@ -48,13 +55,17 @@ export default function Chat() {
 
   // 处理重试
   const handleRetry = () => {
+    console.log('handleRetry called, lastUserMessage before:', lastUserMessage)
     clearError()
-    clearLastUserMessage()
+    const shouldGoToHome = clearLastUserMessage()
+    console.log('handleRetry: lastUserMessage after:', lastUserMessage)
     
-    // 重置相关状态，让页面回到初始屏幕
-    setHideHomeScreen(false)
-    setIsTransitioning(false)
-    setShowChat(false)
+    // 只有当删除后没有消息了，才回到初始屏幕
+    if (shouldGoToHome) {
+      setHideHomeScreen(false)
+      setIsTransitioning(false)
+      setShowChat(false)
+    }
   }
 
   return (
@@ -68,22 +79,16 @@ export default function Chat() {
           onModelChange={setSelectedModel}
           isTransitioning={isTransitioning}
           onTransitionStart={handleTransitionStart}
+          initialValue={lastUserMessage}
+          onModelSelectorOpenChange={setIsModelSelectorOpen}
         />
       ) : (
         <div className={`min-h-full transition-all duration-800 ease-in-out ${
           showChat ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
         }`}>
           {/* 消息区域 - 让整个页面可以滚动 */}
-          <div className="px-6 py-4 pb-44">
+          <div className="px-6 py-4 pb-48">
             <div className="w-full max-w-4xl mx-auto">
-              {/* 错误提示 */}
-              {error && (
-                <ErrorMessage
-                  errorMessage={errorMessage}
-                  onRetry={handleRetry}
-                />
-              )}
-
               {/* 消息列表 */}
               <MessageList
                 messages={messages}
@@ -91,6 +96,19 @@ export default function Chat() {
                 onRegenerate={handleRegenerate}
               />
             </div>
+          </div>
+          
+        </div>
+      )}
+
+      {/* 错误提示 - 固定在输入框上方 */}
+      {errorMessage && messages.length > 0 && !isModelSelectorOpen && (
+        <div className="fixed left-0 right-0 z-10 px-6" style={{ bottom: '155px' }}>
+          <div className="w-full max-w-4xl mx-auto">
+            <ErrorMessage
+              errorMessage={errorMessage}
+              onRetry={handleRetry}
+            />
           </div>
         </div>
       )}
@@ -102,10 +120,13 @@ export default function Chat() {
         }}>
           <div className="w-full mx-auto">
             <ChatInput
+              key={`chat-${lastUserMessage}`}
               onSubmit={handleSendMessage}
               status={status}
               selectedModel={selectedModel}
               onModelChange={setSelectedModel}
+              initialValue={lastUserMessage}
+              onModelSelectorOpenChange={setIsModelSelectorOpen}
             />
           </div>
         </div>

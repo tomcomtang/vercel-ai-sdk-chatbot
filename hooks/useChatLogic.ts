@@ -4,6 +4,19 @@ import { useState } from 'react'
 export function useChatLogic() {
   const [selectedModel, setSelectedModel] = useState('deepseek-chat')
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const [lastUserMessage, setLastUserMessage] = useState<string>('')
+
+  // 包装 setSelectedModel 添加调试日志
+  const handleModelChange = (model: string) => {
+    console.log('=== MODEL CHANGE DEBUG ===')
+    console.log('Model changed from', selectedModel, 'to', model)
+    console.log('Current status:', status)
+    console.log('Current messages length:', messages.length)
+    console.log('Current error:', error)
+    console.log('Current errorMessage:', errorMessage)
+    console.log('========================')
+    setSelectedModel(model)
+  }
 
   const { messages, sendMessage, status, error, regenerate, setMessages, clearError: clearChatError } = useChat({
     onError: (error) => {
@@ -34,15 +47,16 @@ export function useChatLogic() {
           const errorMessage = error.message.toLowerCase()
           if (errorMessage.includes('api key') || errorMessage.includes('authentication') || errorMessage.includes('unauthorized')) {
             setErrorMessage('API key is invalid or expired. Please check your API key configuration.')
-            return
           } else if (errorMessage.includes('quota') || errorMessage.includes('rate limit')) {
             setErrorMessage('API quota exceeded or rate limit reached. Please try again later.')
-            return
           } else if (errorMessage.includes('network') || errorMessage.includes('connection')) {
             setErrorMessage('Network connection error. Please check your internet connection.')
-            return
+          } else {
+            setErrorMessage(error.message)
           }
         }
+      } else {
+        setErrorMessage('An unexpected error occurred')
       }
       
       // 默认错误信息
@@ -55,7 +69,11 @@ export function useChatLogic() {
 
   // 发送消息
   const handleSendMessage = (text: string) => {
+    console.log('=== SEND MESSAGE DEBUG ===')
     console.log('Sending message with model:', selectedModel)
+    console.log('Message text:', text)
+    console.log('Current status:', status)
+    console.log('========================')
     sendMessage({ text }, {
       headers: {
         'X-Model': selectedModel,
@@ -84,9 +102,29 @@ export function useChatLogic() {
 
   // 清除最后一条用户消息（用于重试）
   const clearLastUserMessage = () => {
-    if (messages.length > 0 && messages[messages.length - 1].role === 'user') {
-      setMessages(messages.slice(0, -1))
+    console.log('clearLastUserMessage called, current messages:', messages.length)
+    console.log('Messages:', messages.map(m => ({ role: m.role, content: (m.parts?.[0] as any)?.text || 'no text' })))
+    
+    // 从后往前找到最后一条用户消息
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].role === 'user') {
+        console.log(`Found user message at index ${i}, removing it`)
+        
+        // 保存用户消息内容
+        const userMessageText = (messages[i].parts?.[0] as any)?.text || ''
+        console.log('clearLastUserMessage: saving user message:', userMessageText)
+        setLastUserMessage(userMessageText)
+        
+        const newMessages = messages.slice(0, i)
+        setMessages(newMessages)
+        
+        // 如果删除后没有消息了，返回 true 表示需要回到首屏
+        return newMessages.length === 0
+      }
     }
+    
+    // 如果没有找到用户消息，返回 false
+    return false
   }
 
   return {
@@ -95,8 +133,9 @@ export function useChatLogic() {
     status,
     error,
     selectedModel,
-    setSelectedModel,
+    setSelectedModel: handleModelChange,
     errorMessage,
+    lastUserMessage,
     
     // 方法
     handleSendMessage,

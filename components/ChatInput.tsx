@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ModelSelector from './ModelSelector'
 
 interface ChatInputProps {
@@ -11,6 +11,8 @@ interface ChatInputProps {
   placeholder?: string
   className?: string
   onFocus?: () => void
+  initialValue?: string
+  onModelSelectorOpenChange?: (isOpen: boolean) => void
 }
 
 export default function ChatInput({ 
@@ -20,9 +22,18 @@ export default function ChatInput({
   onModelChange,
   placeholder = "Enter your question or idea...",
   className = "",
-  onFocus
+  onFocus,
+  initialValue = "",
+  onModelSelectorOpenChange
 }: ChatInputProps) {
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState(initialValue)
+
+  // 监听 initialValue 变化，更新输入框内容
+  useEffect(() => {
+    console.log('ChatInput: initialValue changed to:', initialValue)
+    setInput(initialValue)
+    console.log('ChatInput: set input to:', initialValue)
+  }, [initialValue])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -72,6 +83,7 @@ export default function ChatInput({
           selectedModel={selectedModel}
           onModelChange={onModelChange}
           disabled={status !== 'ready'}
+          onOpenChange={onModelSelectorOpenChange}
         />
       </div>
     </form>

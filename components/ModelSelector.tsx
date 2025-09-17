@@ -62,9 +62,10 @@ interface ModelSelectorProps {
   selectedModel: string
   onModelChange: (modelId: string) => void
   disabled?: boolean
+  onOpenChange?: (isOpen: boolean) => void
 }
 
-export default function ModelSelector({ selectedModel, onModelChange, disabled = false }: ModelSelectorProps) {
+export default function ModelSelector({ selectedModel, onModelChange, disabled = false, onOpenChange }: ModelSelectorProps) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   
@@ -74,6 +75,7 @@ export default function ModelSelector({ selectedModel, onModelChange, disabled =
     console.log('ModelSelector: Selected model:', modelId)
     onModelChange(modelId)
     setIsOpen(false)
+    onOpenChange?.(false)
   }
 
   // 点击空白处关闭下拉框
@@ -81,6 +83,7 @@ export default function ModelSelector({ selectedModel, onModelChange, disabled =
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false)
+        onOpenChange?.(false)
       }
     }
 
@@ -96,7 +99,15 @@ export default function ModelSelector({ selectedModel, onModelChange, disabled =
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          console.log('ModelSelector button clicked, current isOpen:', isOpen)
+          const newIsOpen = !isOpen
+          console.log('Setting isOpen to:', newIsOpen)
+          setIsOpen(newIsOpen)
+          onOpenChange?.(newIsOpen)
+        }}
         disabled={disabled}
         className="flex items-center space-x-2 px-3 py-2 text-white text-xs transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:text-gray-300"
       >
@@ -111,7 +122,12 @@ export default function ModelSelector({ selectedModel, onModelChange, disabled =
             {modelOptions.map((option) => (
               <button
                 key={option.id}
-                onClick={() => handleModelSelect(option.id)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  console.log('Model option clicked:', option.id)
+                  handleModelSelect(option.id)
+                }}
                 className={`w-full text-left px-3 py-2 transition-colors duration-200 ${
                   selectedModel === option.id
                     ? 'bg-gray-800 text-white'
