@@ -6,7 +6,6 @@ export function useChatLogic() {
   const [errorMessage, setErrorMessage] = useState<string>('')
 
   const { messages, sendMessage, status, error, regenerate, setMessages, clearError: clearChatError } = useChat({
-    api: '/functions/api/chat',
     onError: (error) => {
       console.error('Chat error:', error)
       console.error('Error details:', {

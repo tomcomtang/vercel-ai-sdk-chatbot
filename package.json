@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next build && echo 'Static files exported to ./out directory'",
     "start": "next start",
     "lint": "next lint"
   },
