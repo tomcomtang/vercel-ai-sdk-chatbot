@@ -110,7 +110,7 @@ export async function POST(req: Request) {
     console.log('Using provider:', providerConfig.name, 'Model:', selectedModel)
 
     // Stream response
-    const result = await streamText({
+    const result = streamText({
       model: providerConfig.provider(selectedModel),
       system: 'You are an intelligent AI assistant dedicated to helping users. Please follow these principles:\n1. Provide accurate, useful, and concise answers\n2. Maintain a friendly and professional tone\n3. Be honest when uncertain about answers\n4. Support both Chinese and English communication\n5. Provide practical advice and solutions',
       messages: convertToModelMessages(uiMessages),
@@ -118,10 +118,8 @@ export async function POST(req: Request) {
       temperature: 0.7,
       onError: (error) => console.error('AI API Error:', error),
       onFinish: (result) => console.log('AI Response finished:', { provider: providerConfig.name, model: selectedModel, usage: result.usage, finishReason: result.finishReason })
-    })
-
-    return result.toUIMessageStreamResponse()
-
+    });
+    return result.toUIMessageStreamResponse();
   } catch (error: any) {
     console.error('API Error:', error)
     

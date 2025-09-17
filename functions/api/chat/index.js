@@ -1,9 +1,9 @@
-const { deepseek } = require('@ai-sdk/deepseek')
-const { anthropic } = require('@ai-sdk/anthropic')
-const { google } = require('@ai-sdk/google')
-const { openai } = require('@ai-sdk/openai')
-const { xai } = require('@ai-sdk/xai')
-const { streamText, convertToModelMessages } = require('ai')
+import { deepseek } from '@ai-sdk/deepseek'
+import { anthropic } from '@ai-sdk/anthropic'
+import { google } from '@ai-sdk/google'
+import { openai } from '@ai-sdk/openai'
+import { xai } from '@ai-sdk/xai'
+import { streamText, convertToModelMessages } from 'ai'
 
 // Provider configuration
 const PROVIDERS = {
@@ -72,7 +72,7 @@ function convertToUIMessages (messages) {
 
 // Generate AI response using streamText
 async function generateAIResponse (providerConfig, selectedModel, uiMessages) {
-  const result = await streamText({
+  const result = streamText({
     model: providerConfig.provider(selectedModel),
     system: 'You are an intelligent AI assistant dedicated to helping users. Please follow these principles:\n1. Provide accurate, useful, and concise answers\n2. Maintain a friendly and professional tone\n3. Be honest when uncertain about answers\n4. Support both Chinese and English communication\n5. Provide practical advice and solutions',
     messages: convertToModelMessages(uiMessages),
@@ -90,13 +90,7 @@ async function generateAIResponse (providerConfig, selectedModel, uiMessages) {
       });
     }
   });
-
-  return new Response(JSON.stringify({ "error": "Internal Server Error" , "toUIMessageStreamResponse": typeof result.toUIMessageStreamResponse }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' }
-  });
-
-  // return result.toUIMessageStreamResponse();
+  return result.toUIMessageStreamResponse();
 }
 
 // Handle API errors
@@ -170,7 +164,7 @@ export async function onRequest({ request, env }) {
   
   // 删除 accept-encoding 头以避免压缩问题
   request.headers.delete('accept-encoding');
-  
+
   // 解析和验证请求体
   const { messages } = await request.json();
   const selectedModel = request.headers.get('X-Model');
@@ -184,11 +178,8 @@ export async function onRequest({ request, env }) {
 
     const messagesError = validateMessages(messages);
     if (messagesError) return messagesError;
-
     // 转换消息为 UI 格式
     const uiMessages = convertToUIMessages(messages);
-    console.log('Converted UI messages:', uiMessages);
-
     // 查找对应的 provider
     const providerConfig = findProvider(selectedModel);
     if (!providerConfig) {
@@ -212,11 +203,11 @@ export async function onRequest({ request, env }) {
         `Please set ${providerConfig.envKey} in environment variables`
       );
     }
-
     // // 生成 AI 响应
     const result = await generateAIResponse(providerConfig, selectedModel, uiMessages);
     return result;
   } catch (error) {
+    console.log('error...', "has trggered the error...");
     return handleAPIError(error, selectedModel);
   }
 }
