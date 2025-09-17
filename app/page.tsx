@@ -50,7 +50,11 @@ export default function Chat() {
   const handleRetry = () => {
     clearError()
     clearLastUserMessage()
-    // 不再重新加载页面，保持在聊天窗口
+    
+    // 重置相关状态，让页面回到初始屏幕
+    setHideHomeScreen(false)
+    setIsTransitioning(false)
+    setShowChat(false)
   }
 
   return (
