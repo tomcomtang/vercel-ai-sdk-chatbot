@@ -196,22 +196,22 @@ export async function onRequest({ request, env }) {
       );
     }
 
-    return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, uiMessages, method, contentType }), {
+    // 验证 API 密钥
+    const apiKey = env[providerConfig.envKey];
+    if (!apiKey) {
+      return createErrorResponse(
+        'API_KEY_NOT_CONFIGURED',
+        `${providerConfig.name} model is not supported, please try using other models or contact the website developer for feedback`,
+        providerConfig.name,
+        selectedModel,
+        `Please set ${providerConfig.envKey} in environment variables`
+      );
+    }
+
+    return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, uiMessages, method, contentType, providerConfig }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
-
-    // // 验证 API 密钥
-    // const apiKey = env[providerConfig.envKey];
-    // if (!apiKey) {
-    //   return createErrorResponse(
-    //     'API_KEY_NOT_CONFIGURED',
-    //     `${providerConfig.name} model is not supported, please try using other models or contact the website developer for feedback`,
-    //     providerConfig.name,
-    //     selectedModel,
-    //     `Please set ${providerConfig.envKey} in environment variables`
-    //   );
-    // }
 
     // console.log('Using provider:', providerConfig.name);
     // console.log('Using model:', selectedModel);
