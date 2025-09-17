@@ -162,22 +162,18 @@ function createErrorResponse (error, message, provider, model, suggestion) {
 // }
 
 export async function onRequest({ request, env }) {
+  // 解析和验证请求体
+  const { messages } = await request.json();
+  const selectedModel = request.headers.get('X-Model');
+  const contentType = request.headers.get('Content-Type');
+  const method = request.method;
+
   try {
   // 删除 accept-encoding 头以避免压缩问题
     request.headers.delete('accept-encoding');
-    console.log('request.method:', request.method);
-  
-    const contentType = request.headers.get('Content-Type');
-    const method = request.method;
-
     if (method !== 'POST' || !contentType) {
       return new Response('Method not allowed', { status: 405 });
-    }
-
-    // 解析和验证请求体
-    const { messages } = await request.json();
-    const selectedModel = request.headers.get('X-Model');
-      
+    }      
     return new Response(JSON.stringify({ "error": "Internal Server Error" , selectedModel, messages, method, contentType }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
