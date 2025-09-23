@@ -8,6 +8,7 @@ export interface ModelOption {
   name: string
   provider: string
   description: string
+  disabled?: boolean
 }
 
 const modelOptions: ModelOption[] = [
@@ -16,46 +17,52 @@ const modelOptions: ModelOption[] = [
     id: 'deepseek-chat',
     name: 'DeepSeek Chat',
     provider: 'DeepSeek',
-    description: 'Strong reasoning and coding abilities'
+    description: 'Strong reasoning and coding abilities',
+    disabled: false
   },
   {
     id: 'deepseek-reasoner',
     name: 'DeepSeek Reasoner',
     provider: 'DeepSeek',
-    description: 'Enhanced reasoning capabilities'
+    description: 'Enhanced reasoning capabilities',
+    disabled: false
   },
   
-  // // Anthropic Models
-  // {
-  //   id: 'claude-3-5-sonnet-latest',
-  //   name: 'Claude 3.5 Sonnet',
-  //   provider: 'Anthropic',
-  //   description: 'Most capable model for complex tasks'
-  // },
+  // Anthropic Models
+  {
+    id: 'claude-3-5-sonnet-latest',
+    name: 'Claude 3.5 Sonnet',
+    provider: 'Anthropic',
+    description: 'Most capable model for complex tasks',
+    disabled: true
+  },
   
-  // // Google Models
-  // {
-  //   id: 'gemini-2.0-flash',
-  //   name: 'Gemini 2.0 Flash',
-  //   provider: 'Google',
-  //   description: 'Latest generation with enhanced capabilities'
-  // },
+  // Google Models
+  {
+    id: 'gemini-2.0-flash',
+    name: 'Gemini 2.0 Flash',
+    provider: 'Google',
+    description: 'Latest generation with enhanced capabilities',
+    disabled: true
+  },
   
-  // // OpenAI Models
-  // {
-  //   id: 'gpt-4o-mini',
-  //   name: 'GPT-4o Mini',
-  //   provider: 'OpenAI',
-  //   description: 'Fast and cost-effective'
-  // },
+  // OpenAI Models
+  {
+    id: 'gpt-4o-mini',
+    name: 'GPT-4o Mini',
+    provider: 'OpenAI',
+    description: 'Fast and cost-effective',
+    disabled: true
+  },
   
-  // // xAI Models
-  // {
-  //   id: 'grok-3',
-  //   name: 'Grok-3',
-  //   provider: 'xAI',
-  //   description: 'Advanced reasoning and real-time knowledge'
-  // }
+  // xAI Models
+  {
+    id: 'grok-3',
+    name: 'Grok-3',
+    provider: 'xAI',
+    description: 'Advanced reasoning and real-time knowledge',
+    disabled: true
+  }
 ]
 
 interface ModelSelectorProps {
@@ -125,11 +132,15 @@ export default function ModelSelector({ selectedModel, onModelChange, disabled =
                 onClick={(e) => {
                   e.preventDefault()
                   e.stopPropagation()
+                  if (option.disabled) return
                   console.log('Model option clicked:', option.id)
                   handleModelSelect(option.id)
                 }}
+                disabled={option.disabled}
                 className={`w-full text-left px-3 py-2 transition-colors duration-200 ${
-                  selectedModel === option.id
+                  option.disabled
+                    ? 'opacity-50 cursor-not-allowed text-gray-500'
+                    : selectedModel === option.id
                     ? 'bg-gray-800 text-white'
                     : 'hover:bg-gray-800 text-gray-300'
                 }`}
