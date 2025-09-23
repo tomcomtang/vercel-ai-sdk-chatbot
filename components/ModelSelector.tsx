@@ -25,37 +25,37 @@ const modelOptions: ModelOption[] = [
     description: 'Enhanced reasoning capabilities'
   },
   
-  // Anthropic Models
-  {
-    id: 'claude-3-5-sonnet-latest',
-    name: 'Claude 3.5 Sonnet',
-    provider: 'Anthropic',
-    description: 'Most capable model for complex tasks'
-  },
+  // // Anthropic Models
+  // {
+  //   id: 'claude-3-5-sonnet-latest',
+  //   name: 'Claude 3.5 Sonnet',
+  //   provider: 'Anthropic',
+  //   description: 'Most capable model for complex tasks'
+  // },
   
-  // Google Models
-  {
-    id: 'gemini-2.0-flash',
-    name: 'Gemini 2.0 Flash',
-    provider: 'Google',
-    description: 'Latest generation with enhanced capabilities'
-  },
+  // // Google Models
+  // {
+  //   id: 'gemini-2.0-flash',
+  //   name: 'Gemini 2.0 Flash',
+  //   provider: 'Google',
+  //   description: 'Latest generation with enhanced capabilities'
+  // },
   
-  // OpenAI Models
-  {
-    id: 'gpt-4o-mini',
-    name: 'GPT-4o Mini',
-    provider: 'OpenAI',
-    description: 'Fast and cost-effective'
-  },
+  // // OpenAI Models
+  // {
+  //   id: 'gpt-4o-mini',
+  //   name: 'GPT-4o Mini',
+  //   provider: 'OpenAI',
+  //   description: 'Fast and cost-effective'
+  // },
   
-  // xAI Models
-  {
-    id: 'grok-3',
-    name: 'Grok-3',
-    provider: 'xAI',
-    description: 'Advanced reasoning and real-time knowledge'
-  }
+  // // xAI Models
+  // {
+  //   id: 'grok-3',
+  //   name: 'Grok-3',
+  //   provider: 'xAI',
+  //   description: 'Advanced reasoning and real-time knowledge'
+  // }
 ]
 
 interface ModelSelectorProps {
