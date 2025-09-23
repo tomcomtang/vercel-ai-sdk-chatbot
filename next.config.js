@@ -1,13 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 只在生产构建时启用静态导出
-  ...(process.env.NODE_ENV === 'production' && {
-    output: 'export',
-    images: { unoptimized: true },
-    trailingSlash: true,
-    distDir: 'out',
-    skipTrailingSlashRedirect: true
-  })
-}
+  // output: 'export',  // 启用静态导出
+  images: {
+    unoptimized: true  // 静态导出时需要禁用图片优化
+  },
+  trailingSlash: true,  // 添加尾部斜杠，提高兼容性
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
