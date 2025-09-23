@@ -32,9 +32,7 @@ const findProvider = (model: string) => {
 }
 
 const validateRequest = (req: Request) => {
-  if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 })
-  
-  const contentType = req.headers.get('content-type')
+  const contentType = req.headers.get('content-type');
   if (!contentType?.includes('application/json')) {
     return new Response('Content-Type must be application/json', { status: 400 })
   }
@@ -59,7 +57,8 @@ const validateMessages = (messages: any[]) => {
 }
 
 export async function POST(req: Request) {
-  const selectedModel = req.headers.get('X-Model') || 'deepseek-chat'
+
+  const selectedModel = req.headers.get('X-Model') || '';
   
   try {
     // Validate request
