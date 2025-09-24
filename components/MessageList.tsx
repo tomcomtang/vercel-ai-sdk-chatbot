@@ -15,12 +15,12 @@ interface MessageListProps {
 export default function MessageList({ messages, status, onRegenerate }: MessageListProps) {
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null)
 
-  // 拷贝消息内容到剪贴板
+  // Copy message content to clipboard
   const copyToClipboard = async (text: string, messageId: string) => {
     try {
       await navigator.clipboard.writeText(text)
       setCopiedMessageId(messageId)
-      // 2秒后清除拷贝状态
+      // Clear copy status after 2 seconds
       setTimeout(() => {
         setCopiedMessageId(null)
       }, 2000)
@@ -90,7 +90,7 @@ export default function MessageList({ messages, status, onRegenerate }: MessageL
                 </p>
               )}
               
-              {/* AI消息操作按钮 */}
+              {/* AI message action buttons */}
               {message.role === 'assistant' && (
                 <div className="flex justify-end space-x-2 mt-2">
                   <button
@@ -130,7 +130,7 @@ export default function MessageList({ messages, status, onRegenerate }: MessageL
             </div>
           </div>
           
-          {/* AI加载状态 - 在最后一条用户消息下方 */}
+          {/* AI loading state - below last user message */}
           {message.role === 'user' && 
            index === messages.length - 1 && 
            status !== 'ready' && (

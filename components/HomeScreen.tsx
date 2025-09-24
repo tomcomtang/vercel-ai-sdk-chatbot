@@ -28,7 +28,7 @@ export default function HomeScreen({
   const [showCursor, setShowCursor] = useState(true)
   const [typingAnimationStopped, setTypingAnimationStopped] = useState(false)
 
-  // 打字动画效果 
+  // Typing animation effect 
   useEffect(() => {
     const text = 'Please enter your question or idea...'
     let currentIndex = 0
@@ -36,12 +36,12 @@ export default function HomeScreen({
 
     const typeInterval = setInterval(() => {
       if (phase === 'typing' && !typingAnimationStopped) {
-        // 打字阶段
+        // Typing phase
         if (currentIndex <= text.length) {
           setPlaceholderText(text.slice(0, currentIndex))
           currentIndex++
         } else {
-          // 打字完成，立即停止光标
+          // Typing completed, immediately stop cursor
           phase = 'stop'
           setShowCursor(false)
         }
@@ -51,7 +51,7 @@ export default function HomeScreen({
     return () => clearInterval(typeInterval)
   }, [typingAnimationStopped])
 
-  // 当用户点击输入框时停止动画
+  // Stop animation when user clicks on input field
   const handleInputFocus = () => {
     if (!typingAnimationStopped) {
       setTypingAnimationStopped(true)
@@ -61,20 +61,20 @@ export default function HomeScreen({
   }
 
   const handleSubmit = (text: string) => {
-    // 开始过渡动画
+    // Start transition animation
     onTransitionStart()
     
-    // 延迟发送消息，让动画有时间播放
+    // Delay sending message to allow animation to play
     setTimeout(() => {
       onSubmit(text)
-    }, 900) // 1120ms过渡时间
+    }, 900) // 900ms transition time
   }
 
   return (
     <div className={`h-full flex flex-col justify-center transition-all duration-[900ms] ease-in-out ${
       isTransitioning ? 'opacity-0 transform -translate-y-8' : 'opacity-100 transform translate-y-0'
     }`}>
-      {/* 标题和描述 */}
+      {/* Title and description */}
       <div className="text-center mb-8">
         <h1 
           ref={useRef<HTMLHeadingElement>(null)}
@@ -96,7 +96,7 @@ export default function HomeScreen({
         </div>
       </div>
       
-      {/* 输入区域 - 直接放在文案下面 */}
+      {/* Input area - placed directly below the text */}
       <div className={`pb-32 transition-all duration-[900ms] ease-in-out ${
         isTransitioning ? 'transform translate-y-32' : 'transform translate-y-0'
       }`}>

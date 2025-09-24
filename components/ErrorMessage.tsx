@@ -8,7 +8,7 @@ interface ErrorMessageProps {
 }
 
 export default function ErrorMessage({ errorMessage, onRetry }: ErrorMessageProps) {
-  const MAX_LENGTH = 80 // 最大显示字符数
+  const MAX_LENGTH = 80 // Maximum display characters
   const truncatedMessage = errorMessage.length > MAX_LENGTH 
     ? errorMessage.substring(0, MAX_LENGTH) + '...'
     : errorMessage
@@ -20,7 +20,7 @@ export default function ErrorMessage({ errorMessage, onRetry }: ErrorMessageProp
           <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
           <p 
             className="text-red-400 text-sm flex-1 truncate"
-            title={errorMessage} // hover时显示完整错误信息
+            title={errorMessage} // Show complete error message on hover
           >
             {truncatedMessage}
           </p>

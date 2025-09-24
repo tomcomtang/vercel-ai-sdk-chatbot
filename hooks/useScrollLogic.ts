@@ -4,7 +4,7 @@ export function useScrollLogic(messagesLength: number, status: string) {
   const [showScrollToBottom, setShowScrollToBottom] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  // 监听滚动事件
+  // Listen to scroll events
   useEffect(() => {
     const handleScroll = () => {
       if (messagesLength === 0) return
@@ -13,7 +13,7 @@ export function useScrollLogic(messagesLength: number, status: string) {
       const windowHeight = window.innerHeight
       const documentHeight = document.documentElement.scrollHeight
       
-      // 如果距离底部超过100px，显示按钮
+      // If distance from bottom exceeds 100px, show button
       const distanceFromBottom = documentHeight - (scrollTop + windowHeight)
       setShowScrollToBottom(distanceFromBottom > 100)
     }
@@ -22,31 +22,31 @@ export function useScrollLogic(messagesLength: number, status: string) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [messagesLength])
 
-  // 当消息数量变化时自动滚动到底部
+  // Auto scroll to bottom when message count changes
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messagesLength])
 
-  // 当AI开始回答时自动滚动到底部，并在回答过程中持续滚动
+  // Auto scroll to bottom when AI starts answering and continue scrolling during response
   useEffect(() => {
     if (status === 'streaming' && messagesEndRef.current) {
-      // 立即滚动到底部
+      // Immediately scroll to bottom
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
       
-      // 设置定时器，在AI回答过程中持续滚动到底部
+      // Set timer to continuously scroll to bottom during AI response
       const scrollInterval = setInterval(() => {
         if (messagesEndRef.current && status === 'streaming') {
           messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
         }
-      }, 500) // 每500ms滚动一次
+      }, 500) // Scroll every 500ms
       
       return () => clearInterval(scrollInterval)
     }
   }, [status])
 
-  // 快速回到底部
+  // Quick return to bottom
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })

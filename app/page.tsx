@@ -15,7 +15,7 @@ export default function Chat() {
   const [hideHomeScreen, setHideHomeScreen] = useState(false)
   const [isModelSelectorOpen, setIsModelSelectorOpen] = useState(false)
 
-  // 使用自定义 hooks
+  // Use custom hooks
   const {
     messages,
     status,
@@ -32,35 +32,35 @@ export default function Chat() {
 
   const { showScrollToBottom, scrollToBottom, messagesEndRef } = useScrollLogic(messages.length, status)
 
-  // 调试：监听 lastUserMessage 变化
+  // Debug: Listen to lastUserMessage changes
   useEffect(() => {
     console.log('page.tsx: lastUserMessage changed to:', lastUserMessage)
   }, [lastUserMessage])
 
-  // 处理消息发送
+  // Handle message sending
   const handleMessageSubmit = (text: string) => {
     handleSendMessage(text)
     setShowChat(true)
     setIsTransitioning(false)
-    // 再延迟一点时间隐藏首屏，确保动画完成
+    // Delay hiding home screen a bit more to ensure animation completes
     setTimeout(() => {
       setHideHomeScreen(true)
     }, 100)
   }
 
-  // 处理过渡开始
+  // Handle transition start
   const handleTransitionStart = () => {
     setIsTransitioning(true)
   }
 
-  // 处理重试
+  // Handle retry
   const handleRetry = () => {
     console.log('handleRetry called, lastUserMessage before:', lastUserMessage)
     clearError()
     const shouldGoToHome = clearLastUserMessage()
     console.log('handleRetry: lastUserMessage after:', lastUserMessage)
     
-    // 只有当删除后没有消息了，才回到初始屏幕
+    // Only return to initial screen if no messages left after deletion
     if (shouldGoToHome) {
       setHideHomeScreen(false)
       setIsTransitioning(false)
@@ -70,7 +70,7 @@ export default function Chat() {
 
   return (
     <div className="w-full max-w-4xl h-full mx-auto px-6 py-4">
-      {/* 初始屏幕标题和描述 */}
+      {/* Initial screen title and description */}
       {messages.length === 0 && !hideHomeScreen ? (
         <HomeScreen
           onSubmit={handleMessageSubmit}
@@ -86,10 +86,10 @@ export default function Chat() {
         <div className={`min-h-full transition-all duration-800 ease-in-out ${
           showChat ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
         }`}>
-          {/* 消息区域 - 让整个页面可以滚动 */}
+          {/* Message area - allow entire page to scroll */}
           <div className="px-6 py-4 pb-48">
             <div className="w-full max-w-4xl mx-auto">
-              {/* 消息列表 */}
+              {/* Message list */}
               <MessageList
                 messages={messages}
                 status={status}
@@ -101,7 +101,7 @@ export default function Chat() {
         </div>
       )}
 
-      {/* 错误提示 - 固定在输入框上方 */}
+      {/* Error message - fixed above input box */}
       {errorMessage && messages.length > 0 && !isModelSelectorOpen && (
         <div className="fixed left-0 right-0 z-10 px-6" style={{ bottom: '155px' }}>
           <div className="w-full max-w-4xl mx-auto">
@@ -113,7 +113,7 @@ export default function Chat() {
         </div>
       )}
 
-      {/* 固定输入框用于聊天状态 */}
+      {/* Fixed input box for chat state */}
       {messages.length > 0 && (
         <div className="fixed bottom-0 left-0 right-0 z-20 px-6 py-4" style={{
           background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0) 100%)'
@@ -132,13 +132,13 @@ export default function Chat() {
         </div>
       )}
 
-      {/* 滚动到底部按钮 */}
+      {/* Scroll to bottom button */}
       <ScrollToBottomButton
         show={showScrollToBottom}
         onClick={scrollToBottom}
       />
 
-      {/* 消息结束引用，用于自动滚动 */}
+      {/* Message end reference for auto-scroll */}
       <div ref={messagesEndRef} />
     </div>
   )

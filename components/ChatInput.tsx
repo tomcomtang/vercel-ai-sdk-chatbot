@@ -28,7 +28,7 @@ export default function ChatInput({
 }: ChatInputProps) {
   const [input, setInput] = useState(initialValue)
 
-  // 监听 initialValue 变化，更新输入框内容
+  // Listen to initialValue changes, update input content
   useEffect(() => {
     console.log('ChatInput: initialValue changed to:', initialValue)
     setInput(initialValue)
@@ -77,7 +77,7 @@ export default function ChatInput({
         {status !== 'ready' ? '...' : '↑'}
       </button>
       
-      {/* 模型选择器 - 左下角 */}
+      {/* Model selector - bottom left corner */}
       <div className="absolute bottom-4 left-4">
         <ModelSelector
           selectedModel={selectedModel}

@@ -12,7 +12,7 @@ export interface ModelOption {
 }
 
 const modelOptions: ModelOption[] = [
-  // DeepSeek Models (优先显示)
+  // DeepSeek Models (Priority display)
   {
     id: 'deepseek-chat',
     name: 'DeepSeek Chat',
@@ -85,7 +85,7 @@ export default function ModelSelector({ selectedModel, onModelChange, disabled =
     onOpenChange?.(false)
   }
 
-  // 点击空白处关闭下拉框
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {

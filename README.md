@@ -1,213 +1,225 @@
-# AI Chatbot - 基于 Vercel AI SDK 的智能聊天机器人
+# AI Chatbot Template - EdgeOne Pages
 
-一个现代化的 AI 聊天机器人，使用 Next.js 14、Vercel AI SDK 和 Tailwind CSS 构建，具有优雅的暗黑主题和流畅的动画效果。
+A modern AI chatbot template built with Next.js 14, Vercel AI SDK, and Tailwind CSS, specifically designed for deployment on EdgeOne Pages. This template provides a complete AI chat interface with support for multiple AI providers and models.
 
-## ✨ 特性
+## What is this template?
 
-- 🤖 **智能对话**: 基于 OpenAI GPT 模型的智能对话
-- 🎨 **现代 UI**: 暗黑主题设计，SVG 背景，流畅动画
-- ⚡ **实时流式**: 支持实时流式响应，提升用户体验
-- 📱 **响应式**: 完全响应式设计，支持各种设备
-- 🎭 **动画效果**: 打字机动画、页面过渡、光晕效果
-- 🔧 **可配置**: 支持多种 AI 模型和参数配置
-- 🛡️ **错误处理**: 完善的错误处理和重试机制
+This template is a production-ready AI chatbot application that you can deploy directly to EdgeOne Pages with one click. It features:
 
-## 🚀 快速开始
+- **Multi-Provider Support**: Works with DeepSeek, OpenAI, Anthropic, Google, and xAI models
+- **Modern UI**: Dark theme design with smooth animations and responsive layout
+- **Real-time Streaming**: Live AI responses with typing effects
+- **Error Handling**: Comprehensive error handling and retry mechanisms
+- **EdgeOne Optimized**: Specifically configured for EdgeOne Pages deployment
 
-### 1. 克隆项目
+## Deploy
+
+[![Deploy to EdgeOne](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://console.tencentcloud.com/edgeone/pages/new?template=https%3A%2F%2Fgithub.com%2Ftomcomtang%2Fvercel-ai-sdk-chatbot&output-directory=.next&build-command=npm+run+build&install-command=npm+install)
+
+Click the button above to deploy this template directly to EdgeOne Pages. The deployment will automatically configure the build settings and install dependencies.
+
+## ✨ Features
+
+- 🤖 **Multi-AI Support**: DeepSeek, OpenAI GPT, Anthropic Claude, Google Gemini, xAI Grok
+- 🎨 **Modern UI**: Dark theme with SVG background and smooth animations
+- ⚡ **Real-time Streaming**: Live AI responses with typewriter effects
+- 📱 **Responsive Design**: Works perfectly on desktop, tablet, and mobile
+- 🎭 **Smooth Animations**: Page transitions, loading states, and interactive effects
+- 🔧 **Configurable**: Easy model switching and parameter adjustment
+- 🛡️ **Robust Error Handling**: Comprehensive error messages and retry functionality
+- 🌐 **EdgeOne Optimized**: Built specifically for EdgeOne Pages deployment
+
+## 🚀 Quick Start
+
+### 1. Clone the Project
 
 ```bash
 git clone https://github.com/tomcomtang/vercel-ai-sdk-chatbot.git
 cd vercel-ai-sdk-chatbot
 ```
 
-### 2. 安装依赖
+### 2. Install Dependencies
 
 ```bash
 npm install
-# 或
+# or
 yarn install
-# 或
+# or
 pnpm install
 ```
 
-### 3. 配置环境变量
+### 3. Configure Environment Variables
 
-复制环境变量示例文件：
+Copy the environment variables example file:
 
 ```bash
 cp env.example .env.local
 ```
 
-编辑 `.env.local` 文件，添加你的 OpenAI API 密钥：
+Edit the `.env.local` file and add your API keys:
 
 ```env
-# OpenAI API Key (必需)
-OPENAI_API_KEY=your_openai_api_key_here
+# DeepSeek API Key (Required for default model)
+DEEPSEEK_API_KEY=your_deepseek_api_key_here
 
-# Optional: Custom model (可选)
-OPENAI_MODEL=gpt-3.5-turbo
+# Optional: Other AI Provider Keys
+OPENAI_API_KEY=your_openai_api_key_here
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+GOOGLE_GENERATIVE_AI_API_KEY=your_google_api_key_here
+XAI_API_KEY=your_xai_api_key_here
 ```
 
-### 4. 获取 OpenAI API 密钥
-
-1. 访问 [OpenAI Platform](https://platform.openai.com/api-keys)
-2. 登录你的账户
-3. 创建新的 API 密钥
-4. 将密钥复制到 `.env.local` 文件中
-
-### 5. 启动开发服务器
+### 4. Start Development Server
 
 ```bash
 npm run dev
-# 或
+# or
 yarn dev
-# 或
+# or
 pnpm dev
 ```
 
-打开 [http://localhost:3000](http://localhost:3000) 查看应用。
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-## 🛠️ 技术栈
+## 🛠️ Tech Stack
 
-- **框架**: Next.js 14 (App Router)
+- **Framework**: Next.js 14 (App Router)
 - **AI SDK**: Vercel AI SDK v5
-- **AI 模型**: OpenAI GPT-3.5-turbo/GPT-4
-- **样式**: Tailwind CSS
-- **图标**: Lucide React
-- **语言**: TypeScript
-- **部署**: Vercel
+- **AI Models**: DeepSeek, OpenAI GPT, Anthropic Claude, Google Gemini, xAI Grok
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Language**: TypeScript
+- **Deployment**: EdgeOne Pages
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 vercel-ai-sdk-chatbot/
 ├── app/
-│   ├── api/chat/route.ts    # AI聊天API路由
-│   ├── globals.css          # 全局样式
-│   ├── layout.tsx           # 根布局
-│   └── page.tsx             # 主页面
+│   ├── api/chat/route.ts    # AI chat API route
+│   ├── globals.css          # Global styles
+│   ├── layout.tsx           # Root layout
+│   └── page.tsx             # Main page
 ├── components/
-│   ├── Navigation.tsx       # 导航栏组件
-│   └── SVGBackground.tsx    # SVG背景组件
-├── env.example              # 环境变量示例
-├── package.json             # 项目配置
-└── README.md                # 项目说明
+│   ├── ChatInput.tsx        # Chat input component
+│   ├── HomeScreen.tsx       # Home screen component
+│   ├── MessageList.tsx     # Message list component
+│   ├── ModelSelector.tsx    # Model selection component
+│   └── ErrorMessage.tsx     # Error message component
+├── hooks/
+│   ├── useChatLogic.ts      # Chat logic hook
+│   └── useScrollLogic.ts    # Scroll logic hook
+├── functions/
+│   └── api/chat/index.js    # EdgeOne Pages Action
+├── env.example              # Environment variables example
+├── EDGEONE_SETUP.md         # EdgeOne deployment guide
+├── package.json             # Project configuration
+└── README.md                # Project documentation
 ```
 
-## ⚙️ 配置选项
+## ⚙️ Configuration Options
 
-### 环境变量
+### Environment Variables
 
-| 变量名                | 必需 | 默认值                      | 说明            |
-| --------------------- | ---- | --------------------------- | --------------- |
-| `OPENAI_API_KEY`      | ✅   | -                           | OpenAI API 密钥 |
-| `OPENAI_MODEL`        | ❌   | `gpt-3.5-turbo`             | AI 模型名称     |
-| `OPENAI_BASE_URL`     | ❌   | `https://api.openai.com/v1` | API 基础 URL    |
-| `OPENAI_ORGANIZATION` | ❌   | -                           | 组织 ID         |
+| Variable Name                  | Required | Default Value | Description       |
+| ------------------------------ | -------- | ------------- | ----------------- |
+| `DEEPSEEK_API_KEY`             | ✅       | -             | DeepSeek API key  |
+| `OPENAI_API_KEY`               | ❌       | -             | OpenAI API key    |
+| `ANTHROPIC_API_KEY`            | ❌       | -             | Anthropic API key |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | ❌       | -             | Google AI API key |
+| `XAI_API_KEY`                  | ❌       | -             | xAI API key       |
 
-### 支持的模型
+### Supported Models
 
-- `gpt-3.5-turbo` (推荐，性价比高)
-- `gpt-4` (更智能，成本较高)
-- `gpt-4-turbo-preview` (最新功能)
+- **DeepSeek**: `deepseek-chat`, `deepseek-reasoner`
+- **OpenAI**: `gpt-4o-mini`
+- **Anthropic**: `claude-3-5-sonnet-latest`
+- **Google**: `gemini-2.0-flash`
+- **xAI**: `grok-3`
 
-## 🎨 自定义
+## 🎨 Customization
 
-### 修改 AI 行为
+### Modify AI Behavior
 
-编辑 `app/api/chat/route.ts` 中的 `system` 提示词：
+Edit the `system` prompt in `app/api/chat/route.ts`:
 
 ```typescript
-system: `你是一个智能AI助手，专门为用户提供帮助。请遵循以下原则：
-1. 回答要准确、有用、简洁
-2. 保持友好和专业的语调
-3. 如果不确定答案，请诚实说明
-4. 支持中文和英文交流
-5. 提供实用的建议和解决方案`;
+system: `You are an intelligent AI assistant dedicated to helping users. Please follow these principles:
+1. Provide accurate, useful, and concise answers
+2. Maintain a friendly and professional tone
+3. Be honest when uncertain about answers
+4. Support both Chinese and English communication
+5. Provide practical advice and solutions`;
 ```
 
-### 调整 AI 参数
+### Adjust AI Parameters
 
 ```typescript
 const result = await streamText({
-  model: openai(modelName),
-  messages,
-  system: systemPrompt,
-  maxTokens: 1000, // 最大输出token数
-  temperature: 0.7, // 创造性 (0-1)
-  // ... 其他参数
+  model: providerConfig.provider(selectedModel),
+  messages: convertToModelMessages(uiMessages),
+  maxOutputTokens: 1000, // Maximum output tokens
+  temperature: 0.7, // Creativity (0-1)
+  // ... other parameters
 });
 ```
 
-### 自定义样式
+### Custom Styling
 
-项目使用 Tailwind CSS，你可以：
+The project uses Tailwind CSS, you can:
 
-1. 修改 `app/globals.css` 中的全局样式
-2. 调整 `components/SVGBackground.tsx` 中的背景
-3. 更新 `app/page.tsx` 中的组件样式
+1. Modify global styles in `app/globals.css`
+2. Update component styles in individual component files
+3. Customize the color scheme and animations
 
-## 🚀 部署
+## 🚀 Deployment
 
-### Vercel 部署 (推荐)
+### EdgeOne Pages Deployment (Recommended)
 
-1. 将代码推送到 GitHub
-2. 在 [Vercel](https://vercel.com) 导入项目
-3. 添加环境变量 `OPENAI_API_KEY`
-4. 部署完成
+1. Click the "Deploy to EdgeOne" button above
+2. Configure environment variables in EdgeOne console
+3. Deploy automatically
 
-### 其他平台
+### Manual Deployment
 
-项目支持部署到任何支持 Next.js 的平台：
+1. Push code to GitHub
+2. Connect your GitHub repository to EdgeOne Pages
+3. Configure environment variables in EdgeOne dashboard
+4. Deploy automatically
 
-- Netlify
-- Railway
-- Render
-- 自托管服务器
+### Other Deployment Options
 
-## 🔧 开发
+- **Vercel**: Supports Next.js with API routes
+- **Netlify**: Supports Next.js static export
+- **Railway**: Full-stack deployment
 
-### 添加新功能
+## 📝 License
 
-1. **工具调用**: 在 `streamText` 中添加 `tools` 参数
-2. **多模型支持**: 扩展环境变量和模型选择
-3. **用户认证**: 集成 NextAuth.js
-4. **数据持久化**: 添加数据库支持
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
-### 调试
+## 🤝 Contributing
 
-启用详细日志：
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-```typescript
-onError: (error) => {
-  console.error('AI API Error:', error)
-},
-onFinish: (result) => {
-  console.log('AI Response finished:', {
-    model: modelName,
-    usage: result.usage,
-    finishReason: result.finishReason
-  })
-}
-```
+## 📞 Support
 
-## 📝 许可证
+If you encounter any issues or have questions, please:
 
-MIT License - 详见 [LICENSE](LICENSE) 文件
+1. Check the [Issues](https://github.com/tomcomtang/vercel-ai-sdk-chatbot/issues) page
+2. Create a new issue with detailed description
+3. Contact the maintainer
 
-## 🤝 贡献
+## 🙏 Acknowledgments
 
-欢迎提交 Issue 和 Pull Request！
-
-## 📞 支持
-
-如有问题，请：
-
-1. 查看 [Issues](https://github.com/tomcomtang/vercel-ai-sdk-chatbot/issues)
-2. 创建新的 Issue
-3. 联系维护者
+- [Vercel AI SDK](https://sdk.vercel.ai/) for providing excellent AI integration tools
+- [Next.js](https://nextjs.org/) for the powerful React framework
+- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
+- [EdgeOne Pages](https://pages.edgeone.ai/) for cloud-edge integrated deployment platform
 
 ---
 
-⭐ 如果这个项目对你有帮助，请给它一个星标！
+Made with ❤️ by [tomcomtang](https://github.com/tomcomtang)
