@@ -1,4 +1,4 @@
-# AI Chatbot Template - EdgeOne Pages
+# VERCEL AI SDK Chatbot Template - EdgeOne Pages
 
 A modern AI chatbot template built with Next.js 14, Vercel AI SDK, and Tailwind CSS, specifically designed for deployment on EdgeOne Pages. This template provides a complete AI chat interface with support for multiple AI providers and models.
 
