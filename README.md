@@ -14,7 +14,7 @@ This template is a production-ready AI chatbot application that you can deploy d
 
 ## Deploy
 
-[![Deploy to EdgeOne](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://console.tencentcloud.com/edgeone/pages/new?template=https%3A%2F%2Fgithub.com%2Ftomcomtang%2Fvercel-ai-sdk-chatbot&output-directory=.next&build-command=npm+run+build&install-command=npm+install)
+[![Deploy to EdgeOne](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?template=https%3A%2F%2Fgithub.com%2Ftomcomtang%2Fvercel-ai-sdk-chatbot&output-directory=.next&build-command=npm+run+build&install-command=npm+install)
 
 Click the button above to deploy this template directly to EdgeOne Pages. The deployment will automatically configure the build settings and install dependencies.
 
