@@ -34,7 +34,7 @@ const modelOptions: ModelOption[] = [
     name: 'Claude 3.5 Sonnet',
     provider: 'Anthropic',
     description: 'Most capable model for complex tasks',
-    disabled: true
+    disabled: false
   },
   
   // Google Models
@@ -43,7 +43,7 @@ const modelOptions: ModelOption[] = [
     name: 'Gemini 2.0 Flash',
     provider: 'Google',
     description: 'Latest generation with enhanced capabilities',
-    disabled: true
+    disabled: false
   },
   
   // OpenAI Models
@@ -52,7 +52,7 @@ const modelOptions: ModelOption[] = [
     name: 'GPT-4o Mini',
     provider: 'OpenAI',
     description: 'Fast and cost-effective',
-    disabled: true
+    disabled: false
   },
   
   // xAI Models
@@ -61,7 +61,7 @@ const modelOptions: ModelOption[] = [
     name: 'Grok-3',
     provider: 'xAI',
     description: 'Advanced reasoning and real-time knowledge',
-    disabled: true
+    disabled: false
   }
 ]
 

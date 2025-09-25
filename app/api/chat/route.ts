@@ -82,7 +82,7 @@ export async function POST(req: Request) {
     }))
 
     // Find provider
-    const providerConfig = findProvider(selectedModel)
+    const providerConfig = findProvider(selectedModel);
     console.log('Provider config:', providerConfig);
     if (!providerConfig) {
       return createErrorResponse(
@@ -94,12 +94,14 @@ export async function POST(req: Request) {
       )
     }
 
-    // Check API key
+    // Check API key - Environment variables need to be configured
+    // For local development: create a .env.local file with the required API keys
+    // For EdgeOne Pages: configure environment variables in the EdgeOne Pages console
     const apiKey = process.env[providerConfig.envKey]
     if (!apiKey) {
       return createErrorResponse(
         'API_KEY_NOT_CONFIGURED',
-        `${providerConfig.name} model is not supported, please try using other models or contact the website developer for feedback`,
+        `API key for ${providerConfig.name} is not configured, please try using other models or contact the website developer for feedback`,
         providerConfig.name,
         selectedModel,
         `Please set ${providerConfig.envKey} in environment variables`

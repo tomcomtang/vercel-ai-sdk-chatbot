@@ -26,7 +26,7 @@ export default function Navigation() {
           </div>
           <div className="flex items-center space-x-3">
             <h1 className="text-xl font-bold text-white">AI Chatbot</h1>
-            <p className="text-sm text-gray-600">Powered by Vercel AI SDK</p>
+            <p className="text-sm text-gray-600">Built with AI SDK</p>
           </div>
         </div>
 
